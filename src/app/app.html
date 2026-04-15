@@ -1,2 +1,14 @@
-<app-navbar></app-navbar>
-<router-outlet />
+<header>
+  <app-navbar></app-navbar>
+</header>
+
+<div class="row">
+  <aside class="col-12 col-md-2">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <main class="col-12 col-md-10 pt-5 pt-md-0">
+    Content
+    <router-outlet></router-outlet>
+  </main>
+</div>
