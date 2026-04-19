@@ -3,4 +3,19 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  min-height: 600px;
+}
+
+.page-item .page-link:hover {
+  background-color: #f5f7ff;
+  border-color: #4f46e5;
+  color: #4f46e5;
+  transform: translateY(-1px);
+  -webkit-transform: translateY(-1px);
+  -moz-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+}
+footer {
+  border-top: 2px solid #eee;
 }

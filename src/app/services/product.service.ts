@@ -11,7 +11,11 @@ export class ProductService {
 
   private http = inject(HttpClient);
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  getProducts(offset?: number, limit?: number): Observable<Product[]> {
+    if (offset !== undefined && limit !== undefined) {
+      return this.http.get<Product[]>(`${this.apiUrl}?offset=${offset}&limit=${limit}`);
+    } else {
+      return this.http.get<Product[]>(this.apiUrl);
+    }
   }
 }
