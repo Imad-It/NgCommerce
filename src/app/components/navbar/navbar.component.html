@@ -1,32 +1,54 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <a class="navbar-brand" href="#">SHOP</a>
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="#">SHOP</a>
+
+    <!-- Toggle -->
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <!-- Links -->
+      <ul class="navbar-nav ms-auto mb-3 mb-lg-0 text-start text-lg-start">
         <li class="nav-item">
-          <a class="nav-link active fw-bold" aria-current="page" href="#">Categories</a>
+          <a class="nav-link active fw-bold" href="#">Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link fw-bold mx-lg-3" href="#">About</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link fw-bold">Contact</a>
+          <a class="nav-link fw-bold" href="#">Contact</a>
         </li>
       </ul>
 
-      <button class="btn btn-outline-success ms-lg-5" type="submit">Login</button>
+      <!-- Right Side -->
+      <div
+        class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 ms-lg-4"
+      >
+        <!-- Login -->
+        <button class="btn btn-outline-success" type="button">Login</button>
+
+        <!-- Cart -->
+        <div class="position-relative align-self-start align-self-lg-center">
+          <fa-icon [icon]="faCartShopping" size="2x" class="text-primary cart-icon"></fa-icon>
+
+          <!-- Badge -->
+          @if (cartCount() > 0) {
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              {{ cartCount() }}
+            </span>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </nav>

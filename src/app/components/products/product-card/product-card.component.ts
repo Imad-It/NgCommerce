@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../../services/cart/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -11,12 +12,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
-  product = input<Product>();
+  product = input.required<Product>();
+  private cartService = inject(CartService);
 
   faCartShopping = faCartShopping;
   expanded = false;
 
   toggle() {
     this.expanded = !this.expanded;
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 }
