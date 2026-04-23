@@ -1,0 +1,40 @@
+<div class="card shadow-sm p-3 m-2">
+  <!-- Remove Button -->
+  <button
+    class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2"
+    (click)="removeFromCart(cartItem().product.id)"
+  >
+    <fa-icon [icon]="faTrash"></fa-icon>
+  </button>
+  <div class="d-flex align-items-center flex-wrap">
+    <img
+      [src]="cartItem().product.images[0]"
+      class="img-fluid rounded d-none d-sm-block"
+      style="max-width: 96px"
+      alt="Produktbild"
+    />
+
+    <div class="flex-grow-1 px-3">
+      <h5 class="mb-1">{{ cartItem().product.title }}</h5>
+      <span class="text-muted fw-bold">{{ cartItem().product.price }}€</span>
+    </div>
+
+    <div
+      class="d-flex align-items-center border rounded overflow-hidden ms-auto mt-2 mt-md-0 align-self-end"
+    >
+      <button
+        class="btn btn-primary px-2 rounded-0"
+        [disabled]="cartItem().quantity === 1"
+        (click)="decreaseQuantity(cartItem())"
+      >
+        <fa-icon [icon]="faMinus"></fa-icon>
+      </button>
+
+      <span class="px-3">{{ cartItem().quantity }}</span>
+
+      <button class="btn btn-primary px-2 rounded-0" (click)="increaseQuantity(cartItem())">
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<section class="row m-2 mt-5 g-3">
+  @if (isEmpty()) {
+    <app-cart-empty></app-cart-empty>
+  } @else {
+    <!-- Cart Items -->
+    <div class="col-6 col-md-8">
+      <app-cart-items></app-cart-items>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="col-6 col-md-4 align-self-start">
+      <app-cart-summary></app-cart-summary>
+    </div>
+  }
+</section>

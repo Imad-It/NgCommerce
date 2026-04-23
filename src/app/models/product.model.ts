@@ -9,3 +9,8 @@ export interface Product {
   category: Category;
   images: string[];
 }
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}

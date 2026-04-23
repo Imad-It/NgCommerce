@@ -13,5 +13,7 @@ export class NavbarComponent {
   private cartService = inject(CartService);
 
   faCartShopping = faCartShopping;
-  cartCount = computed(() => this.cartService.cartItems().length);
+  cartCount = computed(() =>
+    this.cartService.cartItems().reduce((sum, item) => sum + item.quantity, 0),
+  );
 }
