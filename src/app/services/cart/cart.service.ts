@@ -8,6 +8,16 @@ export class CartService {
   cartItems = signal<CartItem[]>([]);
 
   constructor() {
+    const stored = localStorage.getItem('CartItems');
+
+    if (stored) {
+      try {
+        this.cartItems.set(JSON.parse(stored));
+      } catch (e) {
+        console.error('Fehler beim Parsen', e);
+        this.cartItems.set([]);
+      }
+    }
     effect(() => localStorage.setItem('CartItems', JSON.stringify(this.cartItems())));
   }
 

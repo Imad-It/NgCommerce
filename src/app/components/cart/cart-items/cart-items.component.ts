@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CartService } from '../../../services/cart/cart.service';
 import { CartItemComponent } from '../cart-item/cart-item.component';
 

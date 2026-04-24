@@ -12,21 +12,7 @@ import { CartEmptyComponent } from '../cart-empty/cart-empty.component';
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css',
 })
-export class CartPageComponent implements OnInit {
+export class CartPageComponent {
   cartService = inject(CartService);
   isEmpty = computed(() => this.cartService.cartItems().length === 0);
-
-  ngOnInit(): void {
-    console.log('Init läuft');
-
-    const storedItems = localStorage.getItem('CartItems');
-    console.log('Stored:', storedItems);
-
-    if (storedItems) {
-      const parsedItems = JSON.parse(storedItems);
-      console.log('Parsed:', parsedItems);
-
-      this.cartService.cartItems.set(parsedItems);
-    }
-  }
 }
