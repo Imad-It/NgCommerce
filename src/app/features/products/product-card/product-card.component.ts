@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Product } from '../../../features/products/models/product.model';
+import { Product } from '../models/product.model';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';

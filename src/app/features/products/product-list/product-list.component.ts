@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../../services/product/product.service';
-import { Product } from '../../../models/product.model';
+import { Product } from '../models/product.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',

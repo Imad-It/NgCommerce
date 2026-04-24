@@ -1,4 +1,4 @@
-import { Category } from './category.model';
+import { Category } from '../../../models/category.model';
 
 export interface Product {
   id: number;
