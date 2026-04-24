@@ -1,9 +1,10 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { CartItemsComponent } from '../components/cart-items/cart-items.component';
-import { CartService } from '../../../services/cart/cart.service';
+
 import { CommonModule } from '@angular/common';
 import { CartEmptyComponent } from '../components/cart-empty/cart-empty.component';
 import { CartSummaryComponent } from '../components/cart-summary/cart-summary.component';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart-page',
