@@ -1,8 +1,8 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { CartItem } from '../../../models/product.model';
-import { CartService } from '../../../services/cart/cart.service';
+import { CartItem } from '../../../../models/product.model';
+import { CartService } from '../../../../services/cart/cart.service';
 
 @Component({
   selector: 'app-cart-item',
