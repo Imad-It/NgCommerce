@@ -3,7 +3,7 @@ import { Product } from '../models/product.model';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../../services/cart/cart.service';
+import { CartService } from '../../cart/services/cart.service';
 
 @Component({
   selector: 'app-product-card',

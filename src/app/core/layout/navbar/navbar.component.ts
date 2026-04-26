@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { CartService } from '../../services/cart/cart.service';
+import { CartService } from '../../../features/cart/services/cart.service';
 
 @Component({
   selector: 'app-navbar',
