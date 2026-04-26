@@ -1,5 +1,5 @@
-<section>
+<section class="category-list">
   @for (category of categories(); track category.id) {
-    <div>{{ category.name }}</div>
+    <app-category-card [category]="category"></app-category-card>
   }
 </section>
