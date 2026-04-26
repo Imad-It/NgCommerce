@@ -36,7 +36,7 @@
         <button class="btn btn-outline-success" type="button">Login</button>
 
         <!-- Cart -->
-        <div class="position-relative align-self-start align-self-lg-center">
+        <a class="position-relative align-self-start align-self-lg-center" routerLink="cart">
           <fa-icon [icon]="faCartShopping" size="2x" class="text-primary cart-icon"></fa-icon>
 
           <!-- Badge -->
@@ -47,7 +47,7 @@
               {{ cartCount() }}
             </span>
           }
-        </div>
+        </a>
       </div>
     </div>
   </div>
