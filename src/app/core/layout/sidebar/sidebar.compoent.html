@@ -23,7 +23,11 @@
     id="sidebarSupportedContent"
   >
     <ul class="nav flex-column sidebar ps-3 pt-5">
-      <div class="text-uppercase text-muted small fw-bold mb-2">Categories</div>
+      <div class="text-uppercase text-muted small fw-bold mb-2">
+        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active"
+          >Categories</a
+        >
+      </div>
 
       <hr class="my-2" />
 
@@ -76,7 +80,9 @@
       <hr class="my-2" />
 
       <li class="nav-item">
-        <a class="nav-link text-dark fw-bold active" routerLink="/products">Products</a>
+        <a class="nav-link text-dark fw-bold" routerLink="/products" routerLinkActive="active"
+          >Products</a
+        >
       </li>
     </ul>
   </div>
