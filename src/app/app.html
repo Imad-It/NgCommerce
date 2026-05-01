@@ -8,6 +8,7 @@
   </aside>
 
   <main class="col-12 col-md-10 pt-md-5">
+    <app-spinner [isLoading]="this.loadingService.isLoading()"></app-spinner>
     <router-outlet></router-outlet>
   </main>
 </div>
