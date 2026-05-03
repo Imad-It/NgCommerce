@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -14,14 +14,15 @@ export class ProductService {
   private http = inject(HttpClient);
   private loadingService = inject(LoadingService);
 
-  getProducts(offset?: number, limit?: number): Observable<Product[]> {
+  getProducts(offset?: number, limit?: number, categorySlug?: string): Observable<Product[]> {
     this.loadingService.setLoading(true);
-    let queryParams = '';
-    if (offset !== undefined && limit !== undefined) {
-      queryParams = `?offset=${offset}&limit=${limit}`;
-    }
+
+    const params = new HttpParams()
+      .set('offset', offset?.toString() ?? '')
+      .set('limit', limit?.toString() ?? '')
+      .set('categorySlug', categorySlug ?? '');
     return this.http
-      .get<Product[]>(`${this.baseUrl}/products${queryParams}`)
+      .get<Product[]>(`${this.baseUrl}/products`, { params })
       .pipe(finalize(() => this.loadingService.setLoading(false)));
   }
 }
