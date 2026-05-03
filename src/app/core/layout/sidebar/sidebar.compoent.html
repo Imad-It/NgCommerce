@@ -24,65 +24,31 @@
   >
     <ul class="nav flex-column sidebar ps-3 pt-5">
       <div class="text-uppercase text-muted small fw-bold mb-2">
-        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active"
-          >Categories</a
-        >
+        <a class="nav-link text-dark fw-bold">Categories</a>
       </div>
 
       <hr class="my-2" />
 
+      @for (category of categories(); track category.id) {
+        <li class="nav-item">
+          <a
+            class="nav-link text-dark fw-bold"
+            routerLink="/products"
+            [queryParams]="{ categorySlug: category.slug }"
+            routerLinkActive="active"
+            >{{ category.name.split(' ').slice(0, 2).join(' ') }}
+          </a>
+        </li>
+      }
+
       <li class="nav-item">
-        <a
-          class="nav-link text-dark fw-bold"
-          href="#"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarSupportedContent"
-          >Electronics</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link text-dark fw-bold"
-          href="#"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarSupportedContent"
-          >Clothes</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link text-dark fw-bold"
-          href="#"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarSupportedContent"
-          >Shoes</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link text-dark fw-bold"
-          href="#"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarSupportedContent"
-          >Furniture</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link text-dark fw-bold"
-          href="#"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarSupportedContent"
-          >Others</a
-        >
+        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active">Others</a>
       </li>
 
       <hr class="my-2" />
 
       <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" routerLink="/products" routerLinkActive="active"
-          >Products</a
-        >
+        <a class="nav-link text-dark fw-bold" routerLink="/products" routerLinkActive="active">Products</a>
       </li>
     </ul>
   </div>
