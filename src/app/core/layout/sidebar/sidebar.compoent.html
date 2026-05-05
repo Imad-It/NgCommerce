@@ -18,8 +18,8 @@
   <!-- Sidebar -->
 
   <div
-    class="collapse navbar-collapse d-md-block p-3 py-3 bg-body-tertiary"
-    style="width: 200px; min-height: 90vh"
+    class="d-md-block p-3 py-3 bg-body-tertiary sidebar-container h-100"
+    style="width: 200px"
     id="sidebarSupportedContent"
   >
     <ul class="nav flex-column sidebar ps-3 pt-5">
@@ -42,13 +42,21 @@
       }
 
       <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active">Others</a>
+        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active"
+          >Others</a
+        >
       </li>
 
       <hr class="my-2" />
 
       <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" routerLink="/products" routerLinkActive="active">Products</a>
+        <a
+          class="nav-link text-dark fw-bold"
+          routerLink="/products"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Products</a
+        >
       </li>
     </ul>
   </div>
