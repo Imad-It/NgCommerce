@@ -1,14 +1,19 @@
-<header>
+<header class="w-100">
   <app-navbar></app-navbar>
 </header>
 
-<div class="row">
-  <aside class="col-12 col-md-2">
-    <app-sidebar></app-sidebar>
-  </aside>
+<div class="container-fluid">
+  <div class="row min-vh-100">
+    <!-- Sidebar -->
+    <aside class="col-12 col-md-2 p-0 bg-body-tertiary">
+      <app-sidebar></app-sidebar>
+    </aside>
 
-  <main class="col-12 col-md-10 pt-md-5">
-    <app-spinner [isLoading]="this.loadingService.isLoading()"></app-spinner>
-    <router-outlet></router-outlet>
-  </main>
+    <!-- Main -->
+    <main class="col pt-md-5">
+      <app-spinner [isLoading]="this.loadingService.isLoading()"></app-spinner>
+
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

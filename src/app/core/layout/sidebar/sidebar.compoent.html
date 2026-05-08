@@ -1,5 +1,5 @@
-<div class="d-flex position-relative">
-  <!-- Toggle Button (oben links, nur mobile) -->
+<div class="d-flex position-relative w-100">
+  <!-- Toggle Button (Mobile) -->
   <div class="d-md-none position-absolute">
     <button
       class="navbar-toggler m-3"
@@ -16,42 +16,47 @@
   </div>
 
   <!-- Sidebar -->
-
-  <div
-    class="d-md-block p-3 py-3 bg-body-tertiary sidebar-container h-100"
-    style="width: 200px"
-    id="sidebarSupportedContent"
-  >
-    <ul class="nav flex-column sidebar ps-3 pt-5">
-      <div class="text-uppercase text-muted small fw-bold mb-2">
-        <a class="nav-link text-dark fw-bold">Categories</a>
-      </div>
+  <div class="collapse d-md-block p-3 py-3 sidebar w-100" id="sidebarSupportedContent">
+    <ul class="nav flex-column w-100 m-0 p-0 pt-5">
+      <!-- Title -->
+      <li class="sidebar-title-container">
+        <span class="sidebar-title">Categories</span>
+      </li>
 
       <hr class="my-2" />
 
+      <!-- Categories -->
       @for (category of categories(); track category.id) {
-        <li class="nav-item">
+        <li class="nav-item w-100">
           <a
-            class="nav-link text-dark fw-bold"
+            class="nav-link text-dark fw-bold d-block w-100"
             routerLink="/products"
             [queryParams]="{ categorySlug: category.slug }"
             routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
             >{{ category.name.split(' ').slice(0, 2).join(' ') }}
           </a>
         </li>
       }
 
-      <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" routerLink="/categories" routerLinkActive="active"
-          >Others</a
+      <!-- Others -->
+      <li class="nav-item w-100">
+        <a
+          class="nav-link text-dark fw-bold d-block w-100 px-3"
+          routerLinkActive="active"
+          routerLink="/categories"
+          [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
         >
+          Others
+        </a>
       </li>
 
       <hr class="my-2" />
 
-      <li class="nav-item">
+      <!-- Products -->
+      <li class="nav-item w-100">
         <a
-          class="nav-link text-dark fw-bold"
+          class="nav-link text-dark fw-bold d-block w-100"
           routerLink="/products"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
