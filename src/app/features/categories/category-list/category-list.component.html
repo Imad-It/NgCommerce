@@ -1,5 +1,9 @@
 <section class="category-list">
   @for (category of categories(); track category.id) {
-    <app-category-card [category]="category"></app-category-card>
+    <app-category-card
+      [category]="category"
+      [routerLink]="['/products']"
+      [queryParams]="{ categorySlug: category.slug }"
+    ></app-category-card>
   }
 </section>
