@@ -1,0 +1,51 @@
+<div
+  class="card shadow-sm mt-2 m-md-3 mt-lg-2 rounded-4 border"
+  style="margin-top: 70px !important"
+>
+  <div class="card-body">
+    <div class="row g-4">
+      <!-- Search -->
+      <div class="col-12 col-lg-3">
+        <label for="searchInput" class="form-label fw-semibold mb-2"> Search by Title </label>
+
+        <div class="position-relative">
+          <input type="text" id="searchInput" class="form-control pe-5" placeholder="Search..." />
+
+          <fa-icon
+            [icon]="faMagnifyingGlass"
+            class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+          ></fa-icon>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="col-12 col-lg-6">
+        <label class="form-label fw-semibold mb-2"> Price range </label>
+
+        <ngx-slider [(value)]="minPrice" [(highValue)]="maxPrice" [options]="options"> </ngx-slider>
+
+        <div class="mt-2 fw-semibold">{{ minPrice }} € - {{ maxPrice }} €</div>
+      </div>
+
+      <!-- Category -->
+      <div class="col-12 col-lg-3">
+        <label class="form-label fw-semibold mb-2"> Category </label>
+
+        <select class="form-select" (change)="onSelectChange($event)">
+          <option>All Categories</option>
+          @for (category of categories(); track category.id) {
+            <option [value]="category.slug">{{ category.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="d-flex justify-content-end m-2">
+    <button class="btn btn-primary btn-responsive">
+      <fa-icon [icon]="faArrowRotateRight" class="me-2"></fa-icon>
+      Clear Filter
+    </button>
+  </div>
+</div>

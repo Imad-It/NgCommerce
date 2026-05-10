@@ -1,0 +1,16 @@
+.mt-responsive {
+  margin-top: 70px !important;
+}
+
+.btn-responsive {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .btn-responsive {
+    width: auto;
+  }
+  .card {
+    margin-top: 20px !important;
+  }
+}
