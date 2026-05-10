@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowRotateRight, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,7 @@ import { Category } from '../../categories/models/category.model';
   imports: [FaIconComponent, NgxSliderModule, FormsModule],
   templateUrl: './product-filter.component.html',
   styleUrl: './product-filter.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFilterComponent {
   private categoryService = inject(CategoryService);

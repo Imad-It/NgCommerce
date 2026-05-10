@@ -11,6 +11,9 @@
 
     <!-- Main -->
     <main class="col pt-md-5">
+      @if (showFilter()) {
+        <app-product-filter></app-product-filter>
+      }
       <app-spinner [isLoading]="this.loadingService.isLoading()"></app-spinner>
 
       <router-outlet></router-outlet>
