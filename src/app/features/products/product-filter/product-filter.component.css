@@ -1,7 +1,3 @@
-.mt-responsive {
-  margin-top: 70px !important;
-}
-
 .btn-responsive {
   width: 100%;
 }
@@ -10,7 +6,9 @@
   .btn-responsive {
     width: auto;
   }
+}
+@media (max-width: 767px) {
   .card {
-    margin-top: 20px !important;
+    margin-top: 50px !important;
   }
 }

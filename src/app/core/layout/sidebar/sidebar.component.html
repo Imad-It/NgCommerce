@@ -1,0 +1,79 @@
+<div class="position-relative w-100">
+  <!-- Mobile Toggle Button -->
+  <button
+    type="button"
+    class="btn btn-outline-success btn-sm d-md-none position-absolute top-0 start-0 z-3 m-2"
+    (click)="toggleSidebar()"
+    aria-label="Toggle sidebar"
+  >
+    ☰
+  </button>
+
+  <!-- Desctop Sidebar -->
+  <div class="d-none d-md-block">
+    <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  @if (showSidebar()) {
+    <div class="d-md-none">
+      <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
+    </div>
+  }
+</div>
+
+<ng-template #sidebarContent>
+  <nav id="sidebarMenu" class="p-2">
+    <ul class="nav flex-column gap-1 pt-5 pt-md-0">
+      <!-- Title -->
+      <li>
+        <h5 class="fw-bold mb-1 text-secondary">Categories</h5>
+      </li>
+
+      <li><hr class="my-2" /></li>
+
+      <!-- Categories -->
+      @for (category of categories(); track category.id) {
+        <li class="nav-item">
+          <a
+            class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+            routerLink="/products"
+            [queryParams]="{ categorySlug: category.slug }"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
+          >
+            {{ category.name.split(' ').slice(0, 2).join(' ') }}
+          </a>
+        </li>
+      }
+
+      <li><hr class="my-2" /></li>
+
+      <!-- Others -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/categories"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
+        >
+          Others
+        </a>
+      </li>
+
+      <li><hr class="my-2" /></li>
+
+      <!-- Products -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/products"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Products
+        </a>
+      </li>
+    </ul>
+  </nav>
+</ng-template>

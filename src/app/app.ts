@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { SidebarCompoent } from './core/layout/sidebar/sidebar.compoent';
+import { SidebarComponent } from './core/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './core/layout/navbar/navbar.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { LoadingService } from './core/services/loading.service';
@@ -13,7 +13,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [
     RouterOutlet,
     NavbarComponent,
-    SidebarCompoent,
+    SidebarComponent,
     SpinnerComponent,
     ProductFilterComponent,
   ],
