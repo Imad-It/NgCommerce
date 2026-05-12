@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -6,6 +6,4 @@ import { Component, input } from '@angular/core';
   templateUrl: './spinner.component.html',
   styleUrl: './spinner.component.css',
 })
-export class SpinnerComponent {
-  isLoading = input.required<boolean>();
-}
+export class SpinnerComponent {}

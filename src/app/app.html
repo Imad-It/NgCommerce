@@ -10,11 +10,13 @@
     </aside>
 
     <!-- Main -->
-    <main class="col pt-3">
+    <main class="col pt-3 position-relative">
       @if (showFilter()) {
         <app-product-filter></app-product-filter>
       }
-      <app-spinner [isLoading]="this.loadingService.isLoading()"></app-spinner>
+      @if (this.loadingService.isLoading()) {
+        <app-spinner></app-spinner>
+      }
 
       <router-outlet></router-outlet>
     </main>
