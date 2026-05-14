@@ -3,6 +3,6 @@ export interface ProductQuery {
   limit?: number;
   categorySlug?: string;
   title?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  price_min?: number;
+  price_max?: number;
 }
