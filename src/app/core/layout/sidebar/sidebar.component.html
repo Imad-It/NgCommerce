@@ -39,8 +39,7 @@
             class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
             routerLink="/products"
             [queryParams]="{ categorySlug: category.slug }"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
+            [class.active]="queryParams()?.get('categorySlug') === category.slug"
           >
             {{ category.name.split(' ').slice(0, 2).join(' ') }}
           </a>
@@ -54,8 +53,7 @@
         <a
           class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
           routerLink="/categories"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
+          [class.active]="router.url === '/categories'"
         >
           Others
         </a>
@@ -68,8 +66,7 @@
         <a
           class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
           routerLink="/products"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [class.active]="!queryParams()?.get('categorySlug') && !(router.url === '/categories')"
         >
           Products
         </a>

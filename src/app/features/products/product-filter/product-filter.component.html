@@ -6,7 +6,14 @@
         <label for="searchInput" class="form-label fw-semibold mb-2"> Search by Title </label>
 
         <div class="position-relative">
-          <input type="text" id="searchInput" class="form-control pe-5" placeholder="Search..." />
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control pe-5"
+            placeholder="Search..."
+            [ngModel]="searchTerm()"
+            (ngModelChange)="onSearch($event)"
+          />
 
           <fa-icon
             [icon]="faMagnifyingGlass"
@@ -19,17 +26,52 @@
       <div class="col-12 col-lg-6">
         <label class="form-label fw-semibold mb-2"> Price range </label>
 
-        <ngx-slider [(value)]="minPrice" [(highValue)]="maxPrice" [options]="options"> </ngx-slider>
+        <ngx-slider
+          [(value)]="price_min"
+          [(highValue)]="price_max"
+          [options]="options"
+          (valueChange)="onPriceMinChange($event)"
+          (highValueChange)="onPriceMaxChange($event)"
+        >
+        </ngx-slider>
 
-        <div class="mt-2 fw-semibold">{{ minPrice }} € - {{ maxPrice }} €</div>
+        <div class="input-group mt-2" style="width: 300px !important">
+          <input
+            type="number"
+            class="form-control"
+            min="0"
+            max="1000"
+            step="10"
+            [ngModel]="price_min()"
+            (ngModelChange)="onPriceMinChange($event)"
+            aria-label="minPrice"
+          />
+
+          <span class="input-group-text">-</span>
+
+          <input
+            type="number"
+            class="form-control"
+            min="0"
+            max="1000"
+            step="10"
+            [ngModel]="price_max()"
+            (ngModelChange)="onPriceMaxChange($event)"
+            aria-label="maxPrice"
+          />
+        </div>
       </div>
 
       <!-- Category -->
       <div class="col-12 col-lg-3">
         <label class="form-label fw-semibold mb-2"> Category </label>
 
-        <select class="form-select" (change)="onSelectChange($event)">
-          <option>All Categories</option>
+        <select
+          class="form-select"
+          [ngModel]="selectedCategory()"
+          (ngModelChange)="onSelectChange($event)"
+        >
+          <option value="">All Categories</option>
           @for (category of categories(); track category.id) {
             <option [value]="category.slug">{{ category.name }}</option>
           }
@@ -40,7 +82,7 @@
 
   <!-- Button -->
   <div class="d-flex justify-content-end m-3">
-    <button class="btn btn-primary btn-responsive">
+    <button class="btn btn-primary btn-responsive" (click)="resetFilters()">
       <fa-icon [icon]="faArrowRotateRight" class="me-2"></fa-icon>
       Clear Filter
     </button>
