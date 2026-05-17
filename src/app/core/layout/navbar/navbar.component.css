@@ -1,3 +1,15 @@
 fa-icon {
   font-size: 16px;
 }
+.active-cart .cart-icon {
+  color: #0d6efd !important; /* Bootstrap primary */
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+.cart-icon {
+  transition: all 0.2s ease;
+}
+
+a:hover .cart-icon {
+  transform: scale(1.05);
+}

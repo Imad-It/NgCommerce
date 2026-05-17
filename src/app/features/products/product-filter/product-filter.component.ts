@@ -38,19 +38,19 @@ export class ProductFilterComponent {
   // -------------------------
   // SLIDER OPTIONS
   // -------------------------
-  price_min = signal(10);
+  price_min = signal(20);
   price_max = signal(300);
 
   options: Options = {
     floor: 0,
-    ceil: 1000,
+    ceil: 500,
     step: 10,
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          return `Min: <b>${value}€</b>`;
+          return `<span class="text-muted small">Min: <b class="text-danger fw-semibold">${value}€</b></span>`;
         case LabelType.High:
-          return `Max: <b>${value}€</b>`;
+          return `<span class="text-muted small">Max: <b class="text-danger fw-semibold">${value}€</b></span>`;
         default:
           return `${value}€`;
       }
@@ -69,7 +69,7 @@ export class ProductFilterComponent {
   // USER INPUT
   // -------------------------
   onSearch(value: string) {
-    this.searchTerm.set(value.trim());
+    this.searchTerm.set(value);
     this.updateQueryParams();
   }
   onPriceMinChange(value: number) {
@@ -90,7 +90,7 @@ export class ProductFilterComponent {
   resetFilters() {
     this.searchTerm.set('');
     this.selectedCategory.set('');
-    this.price_min.set(10);
+    this.price_min.set(20);
     this.price_max.set(300);
     this.updateQueryParams();
   }

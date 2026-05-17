@@ -26,8 +26,9 @@
   <nav id="sidebarMenu" class="p-2">
     <ul class="nav flex-column gap-1 pt-5 pt-md-0">
       <!-- Title -->
-      <li>
-        <h5 class="fw-bold mb-1 text-secondary">Categories</h5>
+      <li class="d-flex text-secondary">
+        <span class="mx-1"><fa-icon [icon]="faLayerGroup"></fa-icon></span>
+        <h5 class="fw-bold mb-1">Categories</h5>
       </li>
 
       <li><hr class="my-2" /></li>
@@ -46,7 +47,7 @@
         </li>
       }
 
-      <li><hr class="my-2" /></li>
+      <!-- <li><hr class="my-2" /></li> -->
 
       <!-- Others -->
       <li class="nav-item">
@@ -62,13 +63,15 @@
       <li><hr class="my-2" /></li>
 
       <!-- Products -->
-      <li class="nav-item">
+      <li class="nav-item w-100">
         <a
-          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
           routerLink="/products"
+          class="nav-link d-flex align-items-center gap-2 w-100 px-3 py-2 rounded-3 fw-semibold text-dark"
           [class.active]="!queryParams()?.get('categorySlug') && !(router.url === '/categories')"
         >
-          Products
+          <fa-icon [icon]="faCubes"></fa-icon>
+
+          <span>Products</span>
         </a>
       </li>
     </ul>
