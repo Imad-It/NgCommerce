@@ -67,7 +67,7 @@
         <a
           routerLink="/products"
           class="nav-link d-flex align-items-center gap-2 w-100 px-3 py-2 rounded-3 fw-semibold text-dark"
-          [class.active]="!queryParams()?.get('categorySlug') && !(router.url === '/categories')"
+          [class.active]="router.url === '/products'"
         >
           <fa-icon [icon]="faCubes"></fa-icon>
 
