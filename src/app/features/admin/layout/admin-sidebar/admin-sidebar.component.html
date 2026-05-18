@@ -1,0 +1,70 @@
+<div class="position-relative w-100">
+  <!-- Mobile Toggle Button -->
+  <button
+    type="button"
+    class="btn btn-outline-success btn-sm d-md-none position-absolute top-0 start-0 z-3 m-2"
+    (click)="toggleSidebar()"
+    aria-label="Toggle sidebar"
+  >
+    ☰
+  </button>
+
+  <!-- Desctop Sidebar -->
+  <div class="d-none d-md-block">
+    <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  @if (showSidebar()) {
+    <div class="d-md-none">
+      <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
+    </div>
+  }
+</div>
+
+<ng-template #sidebarContent>
+  <nav id="sidebarMenu" class="p-2">
+    <ul class="nav flex-column gap-1 pt-5 pt-md-0">
+      <!-- Dashboard -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/dashboard"
+          [class.active]="router.url === '/dashboard'"
+        >
+          Dashboard
+        </a>
+      </li>
+      <!-- Categories -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/categories"
+          [class.active]="router.url === '/categories'"
+        >
+          Categories
+        </a>
+      </li>
+      <!-- Products -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/products"
+          [class.active]="router.url === '/products'"
+        >
+          Products
+        </a>
+      </li>
+      <!-- Users -->
+      <li class="nav-item">
+        <a
+          class="nav-link text-dark fw-semibold rounded-3 px-3 py-2"
+          routerLink="/users"
+          [class.active]="router.url === '/users'"
+        >
+          Users
+        </a>
+      </li>
+    </ul>
+  </nav>
+</ng-template>
