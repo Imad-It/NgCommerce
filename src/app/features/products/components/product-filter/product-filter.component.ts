@@ -3,10 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowRotateRight, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LabelType, NgxSliderModule, Options } from '@angular-slider/ngx-slider';
-import { CategoryService } from '../../categories/services/category.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Category } from '../../categories/models/category.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from '../../../categories/services/category.service';
+import { Category } from '../../../categories/models/category.model';
 
 @Component({
   selector: 'app-product-filter',

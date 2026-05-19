@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models/product.model';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/product.model';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductListComponent } from '../product-list/product-list.component';
-import { ProductQuery } from '../models/product-query.model';
+import { ProductListComponent } from '../../components/product-list/product-list.component';
+import { ProductQuery } from '../../models/product-query.model';
 
 @Component({
   selector: 'app-product-page',
   imports: [CommonModule, FormsModule, ProductListComponent],
-  templateUrl: './product-page.component.html',
-  styleUrl: './product-page.component.css',
+  templateUrl: './products-page.component.html',
+  styleUrl: './products-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPageComponent {
+export class ProductsPageComponent {
   productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   paramSignal = toSignal(this.route.queryParamMap);

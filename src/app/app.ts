@@ -4,9 +4,9 @@ import { SidebarComponent } from './core/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './core/layout/navbar/navbar.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { LoadingService } from './core/services/loading.service';
-import { ProductFilterComponent } from './features/products/product-filter/product-filter.component';
 import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ProductFilterComponent } from './features/products/components/product-filter/product-filter.component';
 
 @Component({
   selector: 'app-root',
