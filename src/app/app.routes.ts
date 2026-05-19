@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { CategoryListComponent } from './features/categories/category-list/category-list.component';
 
 export const routes: Routes = [
   {
@@ -17,8 +16,8 @@ export const routes: Routes = [
   {
     path: 'categories',
     loadComponent: () =>
-      import('./features/categories/category-list/category-list.component').then(
-        (m) => m.CategoryListComponent,
+      import('./features/categories/pages/categories-page/categories-page.component').then(
+        (m) => m.CategoriesPageComponent,
       ),
   },
 ];

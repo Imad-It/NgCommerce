@@ -6,7 +6,7 @@ import { faCubes, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [CommonModule, FaIconComponent],
+  imports: [CommonModule],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css',
 })
