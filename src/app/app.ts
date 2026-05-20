@@ -10,28 +10,10 @@ import { ProductFilterComponent } from './features/products/components/product-f
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    SidebarComponent,
-    SpinnerComponent,
-    ProductFilterComponent,
-  ],
+  imports: [NavbarComponent, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('NgCommerce');
-  loadingService = inject(LoadingService);
-  private router = inject(Router);
-
-  currentUrl = toSignal(
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map(() => this.router.url),
-    ),
-    { initialValue: this.router.url },
-  );
-
-  showFilter = computed(() => this.currentUrl().startsWith('/products'));
 }
