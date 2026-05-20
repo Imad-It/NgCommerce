@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row min-vh-100">
+    <!-- Sidebar -->
+    <aside class="col-12 col-md-2 p-0 bg-body-tertiary">
+      <app-admin-sidebar></app-admin-sidebar>
+    </aside>
+
+    <!-- Main -->
+    <main class="col pt-3 position-relative">
+      @if (showFilter()) {
+        <app-product-filter></app-product-filter>
+      }
+      @if (this.loadingService.isLoading()) {
+        <app-spinner></app-spinner>
+      }
+
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
