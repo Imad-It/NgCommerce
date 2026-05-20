@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faCubes, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css',
 })

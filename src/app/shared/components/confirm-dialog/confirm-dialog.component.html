@@ -1,0 +1,32 @@
+<!-- Backdrop -->
+<div class="modal-backdrop fade show"></div>
+
+<!-- Modal -->
+<div class="modal fade show d-block">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ confirmData().title }}
+        </h5>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        {{ confirmData().message }}
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+
+        <button type="button" class="btn btn-outline-danger" (click)="onConfirm()">
+          {{ confirmData().confirmButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,4 +20,8 @@ export class CategoryService {
       .get<Category[]>(`${this.baseUrl}/categories`)
       .pipe(finalize(() => this.loadingService.setLoading(false)));
   }
+
+  deleteCategory(id: number) {
+    return this.http.delete(`${this.baseUrl}/categories/${id}`);
+  }
 }

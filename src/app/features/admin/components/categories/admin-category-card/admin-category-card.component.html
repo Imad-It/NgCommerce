@@ -8,7 +8,12 @@
           <span class="ms-1">Edit</span>
         </button>
 
-        <button class="btn btn-sm btn-outline-danger">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="openDeleteDialog(category.id)"
+        >
           <fa-icon [icon]="faTrash"></fa-icon>
           <span class="ms-1">Delete</span>
         </button>
@@ -28,5 +33,12 @@
         </div>
       </div>
     </div>
+  }
+  @if (showModal()) {
+    <app-confirm-dialog
+      [confirmData]="dialogData()"
+      (cancel)="closeDialog()"
+      (confirm)="onDeleteCategory()"
+    ></app-confirm-dialog>
   }
 </section>

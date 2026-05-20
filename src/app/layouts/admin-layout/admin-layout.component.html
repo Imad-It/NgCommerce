@@ -10,7 +10,7 @@
       @if (showFilter()) {
         <app-product-filter></app-product-filter>
       }
-      @if (this.loadingService.isLoading()) {
+      @if (this.loadingService.isLoading() && false) {
         <app-spinner></app-spinner>
       }
 
