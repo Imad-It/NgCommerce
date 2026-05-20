@@ -33,6 +33,14 @@ export const routes: Routes = [
     path: 'admin',
     loadComponent: () =>
       import('./layouts/admin-layout/admin-layout.component').then((m) => m.AdminLayoutComponent),
-    children: [],
+    children: [
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./features/admin/components/categories/admin-category-card/admin-category-card.component').then(
+            (m) => m.AdminCategoryCardComponent,
+          ),
+      },
+    ],
   },
 ];

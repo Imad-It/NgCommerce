@@ -1,0 +1,32 @@
+<section>
+  @for (category of categories(); track category.id) {
+    <div class="card shadow-sm p-3 m-2 position-relative">
+      <!-- Buttons -->
+      <div class="position-absolute top-0 end-0 m-2 d-flex gap-2">
+        <button class="btn btn-sm btn-outline-primary">
+          <fa-icon [icon]="faEdit"></fa-icon>
+          <span class="ms-1">Edit</span>
+        </button>
+
+        <button class="btn btn-sm btn-outline-danger">
+          <fa-icon [icon]="faTrash"></fa-icon>
+          <span class="ms-1">Delete</span>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="d-flex align-items-center flex-wrap">
+        <img
+          [src]="category.image"
+          class="img-fluid rounded d-none d-sm-block"
+          style="max-width: 96px"
+          alt="Produktbild"
+        />
+
+        <div class="flex-grow-1 px-3">
+          <h5 class="mb-1">{{ category.name }}</h5>
+        </div>
+      </div>
+    </div>
+  }
+</section>
