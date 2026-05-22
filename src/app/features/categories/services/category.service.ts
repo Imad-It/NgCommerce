@@ -22,6 +22,6 @@ export class CategoryService {
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(`${this.baseUrl}/categories/${id}`);
+    return this.http.delete<boolean>(`${this.baseUrl}/categories/${id}`);
   }
 }

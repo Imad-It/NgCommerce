@@ -8,13 +8,17 @@ import { ConfirmDialogData } from '../../models/confirm-dialog-data.model';
   styleUrl: './confirm-dialog.component.css',
 })
 export class ConfirmDialogComponent {
-  confirmData = input.required<ConfirmDialogData>();
-  cancel = output<void>();
-  confirm = output<void>();
-  onCancel() {
-    this.cancel.emit();
+  modalData = input.required<ConfirmDialogData>();
+
+  cnacelled = output<void>();
+
+  confirmed = output<void>();
+
+  closeModal() {
+    this.cnacelled.emit();
   }
-  onConfirm() {
-    this.confirm.emit();
+
+  confirmAction() {
+    this.confirmed.emit();
   }
 }
