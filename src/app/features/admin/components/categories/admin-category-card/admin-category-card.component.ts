@@ -17,9 +17,9 @@ export class AdminCategoryCardComponent {
   faTrash = faTrash;
   faEdit = faEdit;
   category = input.required<Category>();
-  deleteInitiated = output<number>();
+  deleteInitiated = output<Category>();
 
-  initiateDelete(id: number) {
-    this.deleteInitiated.emit(this.category().id);
+  initiateDelete(category: Category) {
+    this.deleteInitiated.emit(category);
   }
 }

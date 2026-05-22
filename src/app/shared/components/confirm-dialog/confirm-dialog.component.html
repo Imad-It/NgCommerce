@@ -11,12 +11,12 @@
           {{ modalData().title }}
         </h5>
 
-        <button type="button" class="btn-close" aria-label="Close" (click)="modalData()"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
       </div>
 
       <!-- Body -->
-      <div class="modal-body">
-        {{ modalData().message }}
+      <div class="modal-body" [innerHTML]="modalData().message">
+        <!-- {{ modalData().message }} -->
       </div>
 
       <!-- Footer -->

@@ -35,7 +35,7 @@ export class AdminCategoryListComponent {
   }
 
   //  Delete
-  onDeleteCategory() {
+  deleteCategory() {
     const id = this.selectedCategoryId();
 
     if (!id) return;
@@ -51,12 +51,12 @@ export class AdminCategoryListComponent {
     });
   }
   //  Open modal
-  openDeleteDialog(id: number) {
-    this.selectedCategoryId.set(id);
+  openDeleteDialog(category: Category) {
+    this.selectedCategoryId.set(category.id);
 
     this.dialogData.set({
       title: 'Delete Category',
-      message: 'Are you sure you want to delete this category?',
+      message: `Are you sure you want to delete the category <b class="text-danger">${category.name}</b>?`,
       confirmButtonText: 'Delete',
     });
 

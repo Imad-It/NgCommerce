@@ -10,12 +10,12 @@ import { ConfirmDialogData } from '../../models/confirm-dialog-data.model';
 export class ConfirmDialogComponent {
   modalData = input.required<ConfirmDialogData>();
 
-  cnacelled = output<void>();
+  cancelled = output<void>();
 
   confirmed = output<void>();
 
   closeModal() {
-    this.cnacelled.emit();
+    this.cancelled.emit();
   }
 
   confirmAction() {

@@ -2,14 +2,14 @@
   @for (category of categories(); track category.id) {
     <app-admin-category-card
       [category]="category"
-      (deleteInitiated)="openDeleteDialog($event)"
+      (deleteInitiated)="openDeleteDialog(category)"
     ></app-admin-category-card>
   }
   @if (showModal()) {
     <app-confirm-dialog
       [modalData]="dialogData()"
       (cancelled)="closeDialog()"
-      (confirmed)="onDeleteCategory()"
+      (confirmed)="deleteCategory()"
     ></app-confirm-dialog>
   }
 </section>
