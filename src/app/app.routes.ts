@@ -37,8 +37,8 @@ export const routes: Routes = [
       {
         path: 'categories',
         loadComponent: () =>
-          import('./features/admin/components/categories/admin-category-list/admin-category-list.component').then(
-            (m) => m.AdminCategoryListComponent,
+          import('./features/admin/pages/categories/admin-category-page/admin-category-page.component').then(
+            (m) => m.AdminCategoryPageComponent,
           ),
       },
     ],

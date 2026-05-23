@@ -1,19 +1,21 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { CategoryService } from '../../../../categories/services/category.service';
 import { Category } from '../../../../categories/models/category.model';
 import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-data.model';
 import { AdminCategoryCardComponent } from '../admin-category-card/admin-category-card.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-category-list',
-  imports: [AdminCategoryCardComponent, ConfirmDialogComponent],
+  imports: [CommonModule, AdminCategoryCardComponent, ConfirmDialogComponent],
   templateUrl: './admin-category-list.component.html',
   styleUrl: './admin-category-list.component.css',
 })
 export class AdminCategoryListComponent {
+  reloadCategoreis = output<void>();
   private categoryService = inject(CategoryService);
-  categories = signal<Category[]>([]);
+  categories = input.required<Category[]>();
   selectedCategoryId = signal<number | null>(null);
   showModal = signal(false);
   dialogData = signal<ConfirmDialogData>({
@@ -21,20 +23,7 @@ export class AdminCategoryListComponent {
     message: '',
     confirmButtonText: '',
   });
-  constructor() {
-    this.loadCategories();
-  }
-  // Load data
-  loadCategories() {
-    this.categoryService.getCategories().subscribe({
-      next: (data) => {
-        this.categories.set(data);
-      },
-      error: (err) => console.error(err),
-    });
-  }
 
-  //  Delete
   deleteCategory() {
     const id = this.selectedCategoryId();
 
@@ -42,7 +31,7 @@ export class AdminCategoryListComponent {
 
     this.categoryService.deleteCategory(id).subscribe({
       next: () => {
-        this.loadCategories(); // refresh list
+        this.reloadCategoreis.emit();
         this.closeDialog();
       },
       error: (err) => {
@@ -50,6 +39,7 @@ export class AdminCategoryListComponent {
       },
     });
   }
+
   //  Open modal
   openDeleteDialog(category: Category) {
     this.selectedCategoryId.set(category.id);

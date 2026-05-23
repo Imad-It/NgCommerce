@@ -1,10 +1,6 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { CategoryService } from '../../../../categories/services/category.service';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-data.model';
-import { CommonModule } from '@angular/common';
 import { Category } from '../../../../categories/models/category.model';
 
 @Component({
