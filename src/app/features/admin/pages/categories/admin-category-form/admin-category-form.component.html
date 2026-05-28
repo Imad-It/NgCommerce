@@ -1,0 +1,90 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">Create Category</h2>
+
+          <!-- IMAGE PREVIEW -->
+          <div class="mb-4">
+            @if (categoryModel().preview) {
+              <div
+                class="position-relative border rounded overflow-hidden bg-light"
+                style="height: 300px"
+              >
+                <img
+                  [src]="categoryModel().preview"
+                  class="w-100 h-100"
+                  style="object-fit: cover"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                  (click)="removeImage()"
+                >
+                  X
+                </button>
+              </div>
+            } @else {
+              <div
+                class="border rounded bg-light d-flex justify-content-center align-items-center text-muted"
+                style="height: 300px"
+              >
+                No Image Selected
+              </div>
+            }
+          </div>
+
+          <!-- FILE INPUT -->
+          <div class="mb-4">
+            <input
+              type="file"
+              class="form-control"
+              accept="image/*"
+              (change)="onImageSelected($event)"
+            />
+          </div>
+
+          <!-- NAME -->
+          <div class="mb-4">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Category name"
+              [formField]="categoryForm.name"
+            />
+          </div>
+
+          <!-- SLUG -->
+          <div class="mb-4">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Category slug"
+              [formField]="categoryForm.slug"
+            />
+          </div>
+
+          <!-- UPLOADING -->
+          @if (uploading()) {
+            <div class="alert alert-info text-center">Uploading image...</div>
+          }
+
+          <!-- SAVE BUTTON -->
+          <button
+            class="btn btn-primary btn-lg w-100"
+            [disabled]="loading()"
+            (click)="saveCategory()"
+          >
+            @if (loading()) {
+              Saving...
+            } @else {
+              Save Category
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

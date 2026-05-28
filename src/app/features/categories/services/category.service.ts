@@ -24,4 +24,16 @@ export class CategoryService {
   deleteCategory(id: number) {
     return this.http.delete<boolean>(`${this.baseUrl}/categories/${id}`);
   }
+
+  createCategory(data: { name: string; slug: string; image: string }): Observable<Category> {
+    return this.http.post<Category>(`${this.baseUrl}/categories`, data);
+  }
+
+  uploadImage(file: File): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseUrl}/files/upload`, formData);
+  }
 }

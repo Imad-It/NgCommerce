@@ -2,7 +2,7 @@
   class="card category-card shadow-sm h-100 d-flex flex-column cursor-pointer"
   style="
     width: 288px;
-    height: 300px !important;
+    height: 300px;
     border-radius: 18px;
     overflow: hidden;
     border: 1px solid #e7dada;
@@ -10,11 +10,15 @@
 >
   <img
     [src]="category().image"
-    class="card-img-top w-100 h-100"
-    alt="..."
-    style="height: 240px !important"
+    class="card-img-top"
+    alt="category image"
+    style="height: 240px; width: 100%; object-fit: cover"
+    crossorigin="anonymous"
   />
+
   <div class="card-body">
-    <h5 class="card-title text-center">{{ category().name }}</h5>
+    <h5 class="card-title text-center">
+      {{ category().name }}
+    </h5>
   </div>
 </div>

@@ -41,6 +41,13 @@ export const routes: Routes = [
             (m) => m.AdminCategoryPageComponent,
           ),
       },
+      {
+        path: 'categories/new',
+        loadComponent: () =>
+          import('./features/admin/pages/categories/admin-category-form/admin-category-form.component').then(
+            (m) => m.AdminCategoryFormComponent,
+          ),
+      },
     ],
   },
 ];
