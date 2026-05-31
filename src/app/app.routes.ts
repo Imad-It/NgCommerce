@@ -48,6 +48,13 @@ export const routes: Routes = [
             (m) => m.AdminCategoryFormComponent,
           ),
       },
+      {
+        path: 'categories/:id/edit',
+        loadComponent: () =>
+          import('./features/admin/pages/categories/admin-category-form/admin-category-form.component').then(
+            (m) => m.AdminCategoryFormComponent,
+          ),
+      },
     ],
   },
 ];

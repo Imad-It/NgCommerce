@@ -36,4 +36,18 @@ export class CategoryService {
 
     return this.http.post(`${this.baseUrl}/files/upload`, formData);
   }
+  getCategoryById(id: number): Observable<Category> {
+    console.log('SERVICE CALLED');
+    return this.http.get<Category>(`${this.baseUrl}/categories/${id}`);
+  }
+  updateCategory(
+    id: number,
+    data: {
+      name: string;
+      slug: string;
+      image: string;
+    },
+  ): Observable<Category> {
+    return this.http.put<Category>(`${this.baseUrl}/categories/${id}`, data);
+  }
 }
