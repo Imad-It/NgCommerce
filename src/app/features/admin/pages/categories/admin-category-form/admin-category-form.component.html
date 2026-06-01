@@ -5,22 +5,22 @@
         <div class="card-body p-4">
           <h2 class="text-center mb-4">{{ id() ? 'Edit Category' : 'Create Category' }}</h2>
 
-          <!-- TEST -->
-          <!-- <p>Preview Form: {{ categoryForm.preview().value() }}</p> -->
-          <!-- <p>Preview Model: {{ categoryModel().preview }}</p>
-
-          <pre>Name:{{ categoryForm.name().value() }}</pre>
-          <pre>Slug:{{ categoryForm.slug().value() }}</pre>
-          <pre>Preview : {{ categoryForm.preview().value() }}</pre> -->
-
           <!-- IMAGE PREVIEW -->
           <div class="mb-4">
-            @if (categoryForm.preview().value()) {
+            @if (categoryForm.preview().value() || categoryForm.image().value()) {
               <div
                 class="position-relative border rounded overflow-hidden bg-light"
                 style="height: 300px"
               >
-                <img [src]="categoryForm.preview" class="w-100 h-100" style="object-fit: cover" />
+                <img
+                  [src]="
+                    categoryForm.preview().value()
+                      ? categoryForm.preview().value()
+                      : categoryForm.image().value()
+                  "
+                  class="w-100 h-100"
+                  style="object-fit: cover"
+                />
 
                 <button
                   type="button"

@@ -187,7 +187,7 @@ import { CommonModule } from '@angular/common';
 
 import { form, FormField } from '@angular/forms/signals';
 import { CategoryService } from '../../../../categories/services/category.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Category } from '../../../../categories/models/category.model';
 
@@ -200,6 +200,7 @@ import { Category } from '../../../../categories/models/category.model';
 export class AdminCategoryFormComponent {
   private categoryService = inject(CategoryService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private signalParam = toSignal(this.route.paramMap);
 
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
@@ -311,6 +312,7 @@ export class AdminCategoryFormComponent {
     this.categoryService.createCategory(data).subscribe({
       next: () => {
         this.resetForm();
+        this.router.navigate(['..'], { relativeTo: this.route });
       },
 
       error: (err) => {
@@ -339,6 +341,7 @@ export class AdminCategoryFormComponent {
     this.categoryService.updateCategory(Number(id), data).subscribe({
       next: () => {
         console.log('Category updated');
+        this.router.navigate(['../..'], { relativeTo: this.route });
       },
 
       error: (err) => {
