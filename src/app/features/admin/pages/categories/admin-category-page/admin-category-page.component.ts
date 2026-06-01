@@ -3,14 +3,18 @@ import { CategoryService } from '../../../../categories/services/category.servic
 import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-data.model';
 import { Category } from '../../../../categories/models/category.model';
 import { AdminCategoryListComponent } from '../../../components/categories/admin-category-list/admin-category-list.component';
+import { RouterLink } from '@angular/router';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-admin-category-page',
-  imports: [AdminCategoryListComponent],
+  imports: [AdminCategoryListComponent, RouterLink, FaIconComponent],
   templateUrl: './admin-category-page.component.html',
   styleUrl: './admin-category-page.component.css',
 })
 export class AdminCategoryPageComponent {
+  faPlus = faPlus;
   categories = signal<Category[]>([]);
   private categoryService = inject(CategoryService);
   selectedCategoryId = signal<number | null>(null);
