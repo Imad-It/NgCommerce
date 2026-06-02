@@ -1,0 +1,27 @@
+@if (notificationService.toastState().visible) {
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+    <div
+      class="d-flex align-items-center bg-success text-white rounded-3 shadow-lg px-3 py-2"
+      [class.bg-success]="notificationService.toastState().type === 'success'"
+      [class.bg-danger]="notificationService.toastState().type === 'error'"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="me-3 fs-5">✓</div>
+
+      <div class="flex-grow-1">
+        <div class="fw-semibold">{{ notificationService.toastState().title }}</div>
+
+        <div class="small">{{ notificationService.toastState().message }}</div>
+      </div>
+
+      <button
+        type="button"
+        class="btn-close btn-close-white ms-3"
+        aria-label="Close"
+        (click)="notificationService.hideToast()"
+      ></button>
+    </div>
+  </div>
+}

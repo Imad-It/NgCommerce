@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../../environments/environment';
-import { LoadingService } from '../../../core/services/loading.service';
+import { LoadingService } from '../../../core/services/loading/loading.service';
 import { finalize } from 'rxjs/operators';
 import { ProductQuery } from '../models/product-query.model';
 @Injectable({

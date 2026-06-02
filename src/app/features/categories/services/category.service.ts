@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { finalize, Observable } from 'rxjs';
 import { Category } from '../models/category.model';
-import { LoadingService } from '../../../core/services/loading.service';
+import { LoadingService } from '../../../core/services/loading/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,6 @@ export class CategoryService {
     return this.http.post(`${this.baseUrl}/files/upload`, formData);
   }
   getCategoryById(id: number): Observable<Category> {
-    console.log('SERVICE CALLED');
     return this.http.get<Category>(`${this.baseUrl}/categories/${id}`);
   }
   updateCategory(

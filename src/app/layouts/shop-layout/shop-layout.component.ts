@@ -3,7 +3,7 @@ import { ProductFilterComponent } from '../../features/products/components/produ
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { SidebarComponent } from '../../core/layout/sidebar/sidebar.component';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { LoadingService } from '../../core/services/loading.service';
+import { LoadingService } from '../../core/services/loading/loading.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs/operators';
 

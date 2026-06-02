@@ -5,6 +5,7 @@ import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-d
 import { AdminCategoryCardComponent } from '../admin-category-card/admin-category-card.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-category-list',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class AdminCategoryListComponent {
   reloadCategoreis = output<void>();
   private categoryService = inject(CategoryService);
+  private notificationService = inject(NotificationService);
   categories = input.required<Category[]>();
   selectedCategoryId = signal<number | null>(null);
   showModal = signal(false);
@@ -33,9 +35,11 @@ export class AdminCategoryListComponent {
       next: () => {
         this.reloadCategoreis.emit();
         this.closeDialog();
+        this.notificationService.showSuccess('Deleted', 'Category deleted successfully.');
       },
       error: (err) => {
         console.error('Delete failed', err);
+        this.notificationService.showError('Error', 'Operation failed. Please try again.');
       },
     });
   }
