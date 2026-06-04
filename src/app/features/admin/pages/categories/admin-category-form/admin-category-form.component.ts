@@ -1,12 +1,13 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { CategoryService } from '../../../../categories/services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Category } from '../../../../categories/models/category.model';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
+import * as formUtils from '../../../../../shared/utils/form.util';
 
 @Component({
   selector: 'app-admin-category-form',
@@ -15,24 +16,31 @@ import { NotificationService } from '../../../../../core/services/notification/n
   styleUrl: './admin-category-form.component.css',
 })
 export class AdminCategoryFormComponent {
-  private categoryService = inject(CategoryService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  notificationService = inject(NotificationService);
+  private categoryService = inject(CategoryService);
+  private notificationService = inject(NotificationService);
+  readonly formUtils = formUtils;
+  private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   private signalParam = toSignal(this.route.paramMap);
-
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
+  imageTouched = signal<boolean>(false);
+  categoryModel = signal({
+    id: '',
+    name: '',
+    slug: '',
+    image: '',
+    preview: '',
+  });
 
   //  SINGLE SOURCE OF TRUTH
-  categoryForm = form(
-    signal({
-      id: '',
-      name: '',
-      slug: '',
-      image: '',
-      preview: '',
-    }),
-  );
+  categoryForm = form(this.categoryModel, (schema) => {
+    required(schema.name, { message: 'Name is required.' });
+    minLength(schema.name, 4, { message: 'Name must be at least 4 characters long.' });
+    required(schema.slug, { message: 'Slug is required.' });
+    minLength(schema.slug, 4, { message: 'Slug must be at least 4 characters long.' });
+    required(schema.image, { message: 'Image is required.' });
+  });
 
   // LOAD CATEGORY
   private loadCategory = effect(() => {
@@ -64,6 +72,7 @@ export class AdminCategoryFormComponent {
 
   // IMAGE SELECT
   onImageSelected(event: Event): void {
+    this.imageTouched.set(true);
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
@@ -106,15 +115,12 @@ export class AdminCategoryFormComponent {
   removeImage() {
     this.categoryForm.image().value.set('');
     this.categoryForm.preview().value.set('');
+    this.fileInput()!.nativeElement.value = '';
   }
 
   // SAVE CATEGORY (CREATE)
   saveCategory() {
-    if (
-      this.categoryForm.name().invalid() ||
-      this.categoryForm.slug().invalid() ||
-      this.categoryForm.image().invalid()
-    ) {
+    if (this.categoryForm().invalid()) {
       console.log('FORM INVALID');
       return;
     }
