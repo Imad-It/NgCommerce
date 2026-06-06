@@ -15,14 +15,16 @@ export class ProductService {
   private http = inject(HttpClient);
   private loadingService = inject(LoadingService);
 
-  getProducts(query: ProductQuery): Observable<Product[]> {
+  getProducts(query?: ProductQuery): Observable<Product[]> {
     this.loadingService.setLoading(true);
 
     let params = new HttpParams();
 
-    for (const [key, value] of Object.entries(query)) {
-      if (value !== undefined && value !== null) {
-        params = params.set(key, value.toString());
+    if (query) {
+      for (const [key, value] of Object.entries(query)) {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
       }
     }
 

@@ -1,0 +1,81 @@
+<section class="table-responsive">
+  <table class="table table-hover align-middle border rounded-4 overflow-hidden shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+
+        <!-- Category only visible from lg and above -->
+        <th class="d-none d-lg-table-cell">Category</th>
+
+        <th>Price</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (product of products(); track product.id) {
+        <tr>
+          <!-- IMAGE -->
+          <td>
+            @if (product.images.length > 0) {
+              <img
+                [src]="product.images[0]"
+                [alt]="product.title"
+                class="rounded border"
+                style="width: 110px; height: 80px"
+              />
+            } @else {
+              <div
+                class="d-flex align-items-center justify-content-center rounded border bg-light"
+                style="width: 110px; height: 80px"
+              >
+                No Image
+              </div>
+            }
+          </td>
+
+          <!-- TITLE -->
+          <td class="fw-medium">
+            {{ product.title }}
+          </td>
+
+          <!-- CATEGORY (only lg+) -->
+          <td class="d-none d-lg-table-cell">
+            <a routerLink="/admin/categories" class="text-decoration-none">
+              <span class="badge text-bg-success">
+                {{ product.category.name }}
+              </span>
+            </a>
+          </td>
+
+          <!-- PRICE -->
+          <td class="fw-bold text-success">{{ product.price }} €</td>
+
+          <!-- ACTIONS -->
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <!-- DETAIL -->
+              <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center">
+                <fa-icon [icon]="faEye"></fa-icon>
+                <span class="d-none d-md-inline ms-1">Detail</span>
+              </button>
+
+              <!-- EDIT -->
+              <button class="btn btn-outline-warning btn-sm d-inline-flex align-items-center">
+                <fa-icon [icon]="faEdit"></fa-icon>
+                <span class="d-none d-md-inline ms-1">Edit</span>
+              </button>
+
+              <!-- DELETE -->
+              <button class="btn btn-outline-danger btn-sm d-inline-flex align-items-center">
+                <fa-icon [icon]="faTrash"></fa-icon>
+                <span class="d-none d-md-inline ms-1">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

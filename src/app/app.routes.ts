@@ -55,6 +55,13 @@ export const routes: Routes = [
             (m) => m.AdminCategoryFormComponent,
           ),
       },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./features/admin/components/products/admin-product-list/admin-product-list.component').then(
+            (m) => m.AdminProductListComponent,
+          ),
+      },
     ],
   },
 ];
