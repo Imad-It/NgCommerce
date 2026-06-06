@@ -9,16 +9,14 @@ import * as formUtils from '../../../../../shared/utils/form.util';
 import { FormField, form, minLength, required } from '@angular/forms/signals';
 import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { AdminProductRowComponent } from '../admin-product-row/admin-product-row.component';
 @Component({
   selector: 'app-admin-product-list',
-  imports: [CommonModule, RouterLink, FaIconComponent],
+  imports: [CommonModule, AdminProductRowComponent],
   templateUrl: './admin-product-list.component.html',
   styleUrl: './admin-product-list.component.css',
 })
 export class AdminProductListComponent {
   private productService = inject(ProductService);
   products = toSignal(this.productService.getProducts());
-  faTrash = faTrash;
-  faEdit = faEdit;
-  faEye = faEye;
 }

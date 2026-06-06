@@ -2,10 +2,11 @@ import { Component, input } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Product } from '../../../../products/models/product.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-product-row',
-  imports: [FaIconComponent],
+  selector: 'tr[app-admin-product-row]',
+  imports: [FaIconComponent, RouterLink],
   templateUrl: './admin-product-row.component.html',
   styleUrl: './admin-product-row.component.css',
 })
