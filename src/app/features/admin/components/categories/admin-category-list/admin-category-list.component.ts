@@ -2,14 +2,14 @@ import { Component, inject, input, output, signal } from '@angular/core';
 import { CategoryService } from '../../../../categories/services/category.service';
 import { Category } from '../../../../categories/models/category.model';
 import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-data.model';
-import { AdminCategoryCardComponent } from '../admin-category-card/admin-category-card.component';
+import { AdminCategoryRowComponent } from '../admin-category-row/admin-category-row.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-category-list',
-  imports: [CommonModule, AdminCategoryCardComponent, ConfirmDialogComponent],
+  imports: [CommonModule, AdminCategoryRowComponent, ConfirmDialogComponent],
   templateUrl: './admin-category-list.component.html',
   styleUrl: './admin-category-list.component.css',
 })

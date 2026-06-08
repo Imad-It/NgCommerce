@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
   @for (category of categories(); track category.id) {
     <app-admin-category-card
       [category]="category"
@@ -12,4 +12,33 @@
       (confirmed)="deleteCategory()"
     ></app-confirm-dialog>
   }
+</section> -->
+<section class="table-responsive">
+  <table
+    class="table table-hover align-middle border border-2 rounded rounded-5 overflow-hidden shadow-sm w-100"
+  >
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (category of categories(); track category.id) {
+        <tr
+          app-admin-category-row
+          [category]="category"
+          (deleteInitiated)="openDeleteDialog($event)"
+        ></tr>
+      }
+    </tbody>
+  </table>
 </section>
+@if (showModal()) {
+  <app-confirm-dialog
+    [modalData]="dialogData()"
+    (cancelled)="closeDialog()"
+    (confirmed)="deleteCategory()"
+  ></app-confirm-dialog>
+}

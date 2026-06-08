@@ -5,12 +5,12 @@ import { Category } from '../../../../categories/models/category.model';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-category-card',
+  selector: 'tr[app-admin-category-row]',
   imports: [FaIconComponent, RouterLink],
-  templateUrl: './admin-category-card.component.html',
-  styleUrl: './admin-category-card.component.css',
+  templateUrl: './admin-category-row.component.html',
+  styleUrl: './admin-category-row.component.css',
 })
-export class AdminCategoryCardComponent {
+export class AdminCategoryRowComponent {
   faTrash = faTrash;
   faEdit = faEdit;
   category = input.required<Category>();

@@ -2,13 +2,7 @@ import { Component, computed, ElementRef, inject, signal, viewChild } from '@ang
 import { ProductService } from '../../../../products/services/product.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CategoryService } from '../../../../categories/services/category.service';
-import { NotificationService } from '../../../../../core/services/notification/notification.service';
-import * as formUtils from '../../../../../shared/utils/form.util';
-import { FormField, form, minLength, required } from '@angular/forms/signals';
-import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+
 import { AdminProductRowComponent } from '../admin-product-row/admin-product-row.component';
 @Component({
   selector: 'app-admin-product-list',
