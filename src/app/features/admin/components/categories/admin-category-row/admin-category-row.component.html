@@ -1,6 +1,6 @@
 <!-- Content -->
 <td>
-  @if (category().image) {
+  @if (typeof category().image === 'string' && category().image.trim().startsWith('http')) {
     <img
       [src]="category().image"
       class="category-image rounded"
