@@ -1,12 +1,7 @@
 <!-- Content -->
 <td>
   @if (typeof category().image === 'string' && category().image.trim().startsWith('http')) {
-    <img
-      [src]="category().image"
-      class="category-image rounded"
-      alt="Categorytbild"
-      crossorigin="anonymous"
-    />
+    <img [src]="category().image" class="img rounded border" crossorigin="anonymous" />
   } @else {
     <div
       class="d-flex align-items-center justify-content-center rounded border bg-light"

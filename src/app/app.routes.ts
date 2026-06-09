@@ -58,8 +58,8 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () =>
-          import('./features/admin/components/products/admin-product-list/admin-product-list.component').then(
-            (m) => m.AdminProductListComponent,
+          import('./features/admin/pages/products/admin-product-page/admin-product-page.component').then(
+            (m) => m.AdminProductPageComponent,
           ),
       },
     ],

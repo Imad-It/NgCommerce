@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-end mb-3">
   <a
-    routerLink="/admin/categories/new"
+    routerLink="/admin/products/new"
     class="btn btn-outline-primary d-flex align-items-center me-4"
   >
     <fa-icon [icon]="faPlus" class="me-2"></fa-icon>
@@ -8,7 +8,4 @@
     <span class="d-none d-md-block">Add</span>
   </a>
 </div>
-<app-admin-category-list
-  [categories]="categories()"
-  (reloadCategoreis)="loadCategories()"
-></app-admin-category-list>
+<app-admin-product-list [products]="products()"></app-admin-product-list>

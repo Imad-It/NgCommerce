@@ -1,12 +1,7 @@
 <!-- IMAGE -->
 <td>
   @if (product().images[0]?.startsWith('http')) {
-    <img
-      [src]="product().images[0]"
-      [alt]="product().title"
-      class="rounded border"
-      style="width: 110px; height: 80px"
-    />
+    <img [src]="product().images[0]" class="img rounded border" />
   } @else {
     <div
       class="d-flex align-items-center justify-content-center rounded border bg-light"
