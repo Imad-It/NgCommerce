@@ -8,8 +8,15 @@
   color: white !important;
 }
 .img {
-  width: 150px;
-  height: 110px;
-  object-fit: cover;
+  width: 140px;
+  height: 100px;
+  object-fit: fill;
   border-radius: 6px;
+  background-color: #f8f9fa;
+}
+td {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  max-width: 300px;
+  overflow-wrap: break-word;
 }

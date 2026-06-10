@@ -4,7 +4,7 @@
     <img [src]="category().image" class="img rounded border" crossorigin="anonymous" />
   } @else {
     <div
-      class="d-flex align-items-center justify-content-center rounded border bg-light"
+      class="d-flex align-items-center justify-content-center border bg-light"
       style="width: 110px; height: 80px"
     >
       No Image
@@ -18,21 +18,21 @@
 <td class="text-center">
   <div class="d-flex justify-content-center gap-2">
     <button
-      class="btn btn-sm btn-outline-warning"
+      class="btn btn-sm btn-outline-warning d-inline-flex align-items-center"
       [routerLink]="['/admin/categories', category().id, 'edit']"
     >
       <fa-icon [icon]="faEdit"></fa-icon>
-      <span class="d-none d-md-inline ms-1">Edit</span>
+      <span class="d-none d-md-inline ms-1 text-nowrap">Edit</span>
     </button>
 
     <!-- Button trigger modal -->
     <button
       type="button"
-      class="btn btn-sm btn-outline-danger"
+      class="btn btn-sm btn-outline-danger d-inline-flex align-items-center"
       (click)="initiateDelete(category())"
     >
       <fa-icon [icon]="faTrash"></fa-icon>
-      <span class="d-none d-md-inline ms-1">Delete</span>
+      <span class="d-none d-md-inline ms-1 text-nowrap">Delete</span>
     </button>
   </div>
 </td>
