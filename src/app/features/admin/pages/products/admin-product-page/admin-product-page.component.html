@@ -1,11 +1,62 @@
-<div class="d-flex justify-content-end mb-3">
-  <a
-    routerLink="/admin/products/new"
-    class="btn btn-outline-primary d-flex align-items-center me-4"
-  >
-    <fa-icon [icon]="faPlus" class="me-2"></fa-icon>
+<section>
+  <div class="d-flex justify-content-end mb-3">
+    <a
+      routerLink="/admin/products/new"
+      class="btn btn-outline-primary d-flex align-items-center me-4"
+    >
+      <fa-icon [icon]="faPlus" class="me-2"></fa-icon>
 
-    <span class="d-none d-md-block">Add</span>
-  </a>
-</div>
-<app-admin-product-list [products]="products()"></app-admin-product-list>
+      <span class="d-none d-md-block">Add</span>
+    </a>
+  </div>
+  <app-admin-product-list [products]="products()"></app-admin-product-list>
+  <footer class="p-5 mt-3">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <!--  LIMIT -->
+      <div class="d-flex align-items-center gap-2">
+        <label class="fw-bold mb-0">Items per page:</label>
+
+        <select
+          class="form-select w-auto"
+          [ngModel]="limit()"
+          (ngModelChange)="onLimitChange($event)"
+        >
+          <option [value]="4">4</option>
+          <option [value]="8">8</option>
+          <option [value]="12">12</option>
+          <option [value]="20">20</option>
+        </select>
+      </div>
+
+      <!--PAGINATION  -->
+      <nav>
+        <ul class="pagination mb-0">
+          <li class="page-item">
+            <button
+              type="button"
+              class="page-link"
+              (click)="previousPage()"
+              [class.disabled]="currentPage() === 1"
+            >
+              Previous
+            </button>
+          </li>
+
+          <li class="page-item disabled">
+            <span class="page-link fw-bold"> Page {{ currentPage() }} </span>
+          </li>
+          <li class="page-item">
+            <button
+              type="button"
+              class="page-link"
+              (click)="nextPage()"
+              [class.disabled]="isLastPage()"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</section>
