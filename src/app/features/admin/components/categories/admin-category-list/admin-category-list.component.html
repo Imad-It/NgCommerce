@@ -14,6 +14,18 @@
           [category]="category"
           (deleteInitiated)="openDeleteDialog($event)"
         ></tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="text-center py-5">
+            <div class="d-flex flex-column align-items-center gap-2 text-muted">
+              <i class="bi bi-inbox fs-1"></i>
+              <h6 class="mb-0">No categories available</h6>
+              <small class="text-secondary">
+                There are currently no categoriess in this list.
+              </small>
+            </div>
+          </td>
+        </tr>
       }
     </tbody>
   </table>
