@@ -9,7 +9,7 @@
     <main class="col-12 col-md-10 pt-3 position-relative">
       <app-toast></app-toast>
 
-      @if (showFilter() || true) {
+      @if (showFilter()) {
         <app-product-filter></app-product-filter>
       }
       @if (this.loadingService.isLoading()) {

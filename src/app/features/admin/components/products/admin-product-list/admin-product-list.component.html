@@ -1,21 +1,37 @@
 <section class="table-responsive">
-  <table
-    class="table table-hover align-middle border border-2 rounded rounded-5 overflow-hidden shadow-sm"
-  >
-    <thead class="table-light">
-      <tr>
-        <th>Image</th>
-        <th>Title</th>
-        <!-- Category only visible from lg and above -->
-        <th class="d-none d-lg-table-cell">Category</th>
-        <th>Price</th>
-        <th class="text-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (product of products(); track product.id) {
-        <tr app-admin-product-row [product]="product"></tr>
-      }
-    </tbody>
-  </table>
+  @if (loadingService.isLoading()) {
+    <!-- kein Empty-State während Loading -->
+  } @else {
+    <table
+      class="table table-hover align-middle border border-2 rounded rounded-3 overflow-hidden shadow-sm"
+    >
+      <thead class="table-light">
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th class="d-none d-lg-table-cell">Category</th>
+          <th>Price</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (product of products(); track product.id) {
+          <tr app-admin-product-row [product]="product"></tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-center py-5">
+              <div class="d-flex flex-column align-items-center gap-2 text-muted">
+                <i class="bi bi-inbox fs-1"></i>
+                <h6 class="mb-0">No products available</h6>
+                <small class="text-secondary">
+                  There are currently no products in this list.
+                </small>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 </section>

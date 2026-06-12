@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminProductRowComponent } from '../admin-product-row/admin-product-row.component';
 import { Product } from '../../../../products/models/product.model';
+import { LoadingService } from '../../../../../core/services/loading/loading.service';
 @Component({
   selector: 'app-admin-product-list',
   imports: [CommonModule, AdminProductRowComponent],
@@ -22,5 +23,6 @@ import { Product } from '../../../../products/models/product.model';
 })
 export class AdminProductListComponent {
   products = input.required<Product[]>();
+  loadingService = inject(LoadingService);
   // reloadProducts = output<void>();
 }

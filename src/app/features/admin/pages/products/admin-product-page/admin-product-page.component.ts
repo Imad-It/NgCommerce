@@ -7,9 +7,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductQuery } from '../../../../products/models/product-query.model';
-import { switchMap } from 'rxjs';
+import { finalize, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../../../../../core/services/loading/loading.service';
 
 @Component({
   selector: 'app-admin-product-page',
@@ -19,10 +20,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminProductPageComponent {
   faPlus = faPlus;
-  // private productService = inject(ProductService);
-  // products = toSignal(this.productService.getProducts(), { initialValue: [] });
+  private loadingService = inject(LoadingService);
 
-  productService = inject(ProductService);
+  private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   paramSignal = toSignal(this.route.queryParamMap);
   limit = signal(8);
@@ -43,7 +43,11 @@ export class AdminProductPageComponent {
 
   products = toSignal(
     toObservable(this.query).pipe(
-      switchMap((query: ProductQuery) => this.productService.getProducts(query)),
+      switchMap((query: ProductQuery) =>
+        this.productService
+          .getProducts(query)
+          .pipe(finalize(() => this.loadingService.setLoading(false))),
+      ),
     ),
     { initialValue: [] as Product[] },
   );
