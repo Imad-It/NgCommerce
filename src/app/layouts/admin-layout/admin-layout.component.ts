@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AdminSidebarComponent } from '../../features/admin/layout/admin-sidebar/admin-sidebar.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { LoadingService } from '../../core/services/loading/loading.service';
@@ -24,7 +24,7 @@ import { NotificationService } from '../../core/services/notification/notificati
 export class AdminLayoutComponent {
   loadingService = inject(LoadingService);
   private router = inject(Router);
-  notificationService = inject(NotificationService);
+  private route = inject(ActivatedRoute);
 
   currentUrl = toSignal(
     this.router.events.pipe(
@@ -34,5 +34,8 @@ export class AdminLayoutComponent {
     { initialValue: this.router.url },
   );
 
-  showFilter = computed(() => this.currentUrl() === '/admin/products');
+  showFilter = computed(() => {
+    const url = this.currentUrl().split('?')[0];
+    return url === '/admin/products';
+  });
 }
