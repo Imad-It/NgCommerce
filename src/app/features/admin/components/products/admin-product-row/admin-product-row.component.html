@@ -33,9 +33,12 @@
 <td class="text-center">
   <div class="d-flex justify-content-center gap-2">
     <!-- DETAIL -->
-    <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center">
+    <button
+      class="btn btn-outline-primary btn-sm d-inline-flex align-items-center"
+      [routerLink]="['/admin/products', product().id]"
+    >
       <fa-icon [icon]="faEye"></fa-icon>
-      <span class="d-none d-md-inline text-nowrap ms-1">Detail</span>
+      <span class="d-none d-md-inline text-nowrap ms-1">Details</span>
     </button>
 
     <!-- EDIT -->

@@ -34,5 +34,5 @@ export class AdminLayoutComponent {
     { initialValue: this.router.url },
   );
 
-  showFilter = computed(() => this.currentUrl().startsWith('/admin/products'));
+  showFilter = computed(() => this.currentUrl() === '/admin/products');
 }

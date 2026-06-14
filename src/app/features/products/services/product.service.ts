@@ -32,4 +32,8 @@ export class ProductService {
       .get<Product[]>(`${this.baseUrl}/products`, { params })
       .pipe(finalize(() => this.loadingService.setLoading(false)));
   }
+
+  getProductById(id: string) {
+    return this.http.get<Product>(`${this.baseUrl}/products/${id}`);
+  }
 }

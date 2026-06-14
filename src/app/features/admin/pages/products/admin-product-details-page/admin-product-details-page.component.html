@@ -1,0 +1,117 @@
+<div class="container py-5">
+  <div class="mx-auto" style="max-width: 1200px">
+    <div class="card border-0 shadow rounded-4 overflow-hidden">
+      <!-- Page Header -->
+      <div class="bg-white border-bottom p-4 text-center">
+        <h2 class="fw-bold mb-1">Product Details</h2>
+      </div>
+
+      <div class="card-body p-5">
+        <div class="row g-5">
+          <!-- Product Images -->
+          <div class="col-lg-4">
+            <div class="sticky-top" style="top: 20px">
+              <div class="text-muted small fw-semibold mb-3">Product Images</div>
+
+              <div
+                id="carouselExampleControls"
+                class="carousel slide rounded-4 overflow-hidden bg-light border border-2"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  @for (img of product()?.images; track $index; let i = $index) {
+                    <div class="carousel-item" [class.active]="i === 0">
+                      <img
+                        [src]="img"
+                        class="d-block w-100"
+                        alt="Product image"
+                        style="height: 340px; object-fit: cover"
+                        crossorigin="anonymous"
+                      />
+                    </div>
+                  }
+                </div>
+
+                <!-- Previous Slide -->
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="prev"
+                >
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+
+                <!-- Next Slide -->
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="next"
+                >
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Information -->
+          <div class="col-lg-8">
+            <!-- Basic Information -->
+            <div class="card border-0 bg-light rounded-4 p-4 mb-4">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="text-muted small">Name</div>
+                  <div class="fw-semibold fs-5">
+                    {{ product()?.title }}
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="text-muted small">Slug</div>
+                  <div class="fw-semibold fs-5">
+                    {{ product()?.slug }}
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="text-muted small">Price</div>
+                  <div class="fw-semibold fs-5 text-success">{{ product()?.price }} €</div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="text-muted small">Category</div>
+                  <div class="fw-semibold fs-5">
+                    {{ product()?.category?.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Description -->
+            <div class="card border-0 bg-light rounded-4 p-4">
+              <div class="text-muted small mb-2">Description</div>
+
+              <div class="fs-6 lh-lg text-secondary" style="white-space: pre-line">
+                {{ product()?.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+          <!-- Back Button -->
+          <button class="btn btn-outline-secondary px-4" routerLink="/admin/products">
+            ← Back
+          </button>
+
+          <!-- Edit Button -->
+          <button class="btn btn-primary px-5">Edit Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
