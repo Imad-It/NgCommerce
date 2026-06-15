@@ -9,7 +9,7 @@
       <span class="d-none d-md-block">Add</span>
     </a>
   </div>
-  <app-admin-product-list [products]="products()"></app-admin-product-list>
+  <app-admin-product-list [products]="products()" (reloadProducts)="loadProducts()"></app-admin-product-list>
   @if (products().length > 0) {
     <footer class="p-5 mt-3">
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">

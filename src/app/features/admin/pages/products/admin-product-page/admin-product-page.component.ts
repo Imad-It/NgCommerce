@@ -19,6 +19,7 @@ import { LoadingService } from '../../../../../core/services/loading/loading.ser
   styleUrl: './admin-product-page.component.css',
 })
 export class AdminProductPageComponent {
+  private refresh = signal<number>(0);
   faPlus = faPlus;
   private loadingService = inject(LoadingService);
 
@@ -29,6 +30,7 @@ export class AdminProductPageComponent {
   currentPage = signal(1);
   offset = computed(() => (this.currentPage() - 1) * this.limit());
   query = computed<ProductQuery>(() => {
+    this.refresh();
     const params = this.paramSignal();
 
     return {
@@ -51,6 +53,10 @@ export class AdminProductPageComponent {
     ),
     { initialValue: [] as Product[] },
   );
+
+  loadProducts() {
+    this.refresh.update((v) => v + 1);
+  }
 
   isLastPage = computed(() => {
     const data = this.products();

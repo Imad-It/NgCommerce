@@ -17,13 +17,7 @@ export class AdminCategoryPageComponent {
   faPlus = faPlus;
   categories = signal<Category[]>([]);
   private categoryService = inject(CategoryService);
-  selectedCategoryId = signal<number | null>(null);
-  showModal = signal(false);
-  dialogData = signal<ConfirmDialogData>({
-    title: '',
-    message: '',
-    confirmButtonText: '',
-  });
+
   constructor() {
     this.loadCategories();
   }

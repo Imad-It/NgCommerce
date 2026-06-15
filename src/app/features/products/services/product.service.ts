@@ -36,4 +36,8 @@ export class ProductService {
   getProductById(id: string) {
     return this.http.get<Product>(`${this.baseUrl}/products/${id}`);
   }
+
+  deleteProducts(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.baseUrl}/products/${id}`);
+  }
 }

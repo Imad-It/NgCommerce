@@ -17,7 +17,11 @@
 
       <tbody>
         @for (product of products(); track product.id) {
-          <tr app-admin-product-row [product]="product"></tr>
+          <tr
+            app-admin-product-row
+            [product]="product"
+            (deleteInitiated)="openDeleteDialog($event)"
+          ></tr>
         } @empty {
           <tr>
             <td colspan="5" class="text-center py-5">
@@ -33,5 +37,12 @@
         }
       </tbody>
     </table>
+  }
+  @if (showModal()) {
+    <app-confirm-dialog
+      [modalData]="dialogData()"
+      (cancelled)="closeDialog()"
+      (confirmed)="deleteProduct()"
+    ></app-confirm-dialog>
   }
 </section>
