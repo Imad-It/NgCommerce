@@ -1,11 +1,11 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { CategoryService } from '../../../../categories/services/category.service';
 import { Category } from '../../../../categories/models/category.model';
-import { ConfirmDialogData } from '../../../../../shared/models/confirm-dialog-data.model';
 import { AdminCategoryRowComponent } from '../admin-category-row/admin-category-row.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-admin-category-list',
@@ -14,21 +14,17 @@ import { NotificationService } from '../../../../../core/services/notification/n
   styleUrl: './admin-category-list.component.css',
 })
 export class AdminCategoryListComponent {
-  reloadCategoreis = output<void>();
   private categoryService = inject(CategoryService);
   private notificationService = inject(NotificationService);
+  private confirmDialogService = inject(ConfirmDialogService);
   categories = input.required<Category[]>();
+  reloadCategoreis = output<void>();
   selectedCategoryId = signal<number | null>(null);
-  showModal = signal(false);
-  dialogData = signal<ConfirmDialogData>({
-    title: '',
-    message: '',
-    confirmButtonText: '',
-  });
+  showModal = this.confirmDialogService.show;
+  dialogData = this.confirmDialogService.data;
 
   deleteCategory() {
     const id = this.selectedCategoryId();
-
     if (!id) return;
 
     this.categoryService.deleteCategory(id).subscribe({
@@ -47,26 +43,12 @@ export class AdminCategoryListComponent {
   //  Open modal
   openDeleteDialog(category: Category) {
     this.selectedCategoryId.set(category.id);
-
-    this.dialogData.set({
-      title: 'Delete Category',
-      message: `Are you sure you want to delete the category <b class="text-danger">${category.name}</b>?`,
-      confirmButtonText: 'Delete',
-    });
-
-    this.showModal.set(true);
+    this.confirmDialogService.open('Category', category.name);
   }
 
   //  Close modal
   closeDialog() {
-    this.showModal.set(false);
-
-    this.dialogData.set({
-      title: '',
-      message: '',
-      confirmButtonText: '',
-    });
-
+    this.confirmDialogService.close();
     this.selectedCategoryId.set(null);
   }
 }

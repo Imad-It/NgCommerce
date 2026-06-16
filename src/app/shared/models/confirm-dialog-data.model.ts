@@ -4,3 +4,8 @@ export interface ConfirmDialogData {
   confirmButtonText: string;
   cancelButtonText?: string;
 }
+export const initialDialogData: ConfirmDialogData = {
+  title: '',
+  message: '',
+  confirmButtonText: '',
+};
