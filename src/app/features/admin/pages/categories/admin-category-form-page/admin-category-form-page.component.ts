@@ -12,10 +12,10 @@ import * as formUtils from '../../../../../shared/utils/form.util';
 @Component({
   selector: 'app-admin-category-form',
   imports: [CommonModule, FormField],
-  templateUrl: './admin-category-form.component.html',
-  styleUrl: './admin-category-form.component.css',
+  templateUrl: './admin-category-form-page.component.html',
+  styleUrl: './admin-category-form-page.component.css',
 })
-export class AdminCategoryFormComponent {
+export class AdminCategoryFormPageComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private categoryService = inject(CategoryService);

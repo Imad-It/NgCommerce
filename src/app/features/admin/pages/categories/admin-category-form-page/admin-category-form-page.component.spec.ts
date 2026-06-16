@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminCategoryFormComponent } from './admin-category-form.component';
+import { AdminCategoryFormComponent } from './admin-category-form-page.component';
 
 describe('AdminCategoryFormComponent', () => {
   let component: AdminCategoryFormComponent;
@@ -8,9 +8,8 @@ describe('AdminCategoryFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminCategoryFormComponent]
-    })
-    .compileComponents();
+      imports: [AdminCategoryFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminCategoryFormComponent);
     component = fixture.componentInstance;

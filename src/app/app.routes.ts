@@ -44,15 +44,15 @@ export const routes: Routes = [
       {
         path: 'categories/new',
         loadComponent: () =>
-          import('./features/admin/pages/categories/admin-category-form/admin-category-form.component').then(
-            (m) => m.AdminCategoryFormComponent,
+          import('./features/admin/pages/categories/admin-category-form-page/admin-category-form-page.component').then(
+            (m) => m.AdminCategoryFormPageComponent,
           ),
       },
       {
         path: 'categories/:id/edit',
         loadComponent: () =>
-          import('./features/admin/pages/categories/admin-category-form/admin-category-form.component').then(
-            (m) => m.AdminCategoryFormComponent,
+          import('./features/admin/pages/categories/admin-category-form-page/admin-category-form-page.component').then(
+            (m) => m.AdminCategoryFormPageComponent,
           ),
       },
       {
