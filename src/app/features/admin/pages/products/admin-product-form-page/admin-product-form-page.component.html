@@ -1,0 +1,148 @@
+<div class="container py-5">
+  <div class="card shadow border-0 rounded-4">
+    <div class="card-header bg-white py-4">
+      <h2 class="text-center fw-bold mb-0">
+        {{ id() ? 'Produkt bearbeiten' : 'Produkt erstellen' }}
+      </h2>
+    </div>
+
+    <div class="card-body p-4">
+      <!-- BILDER -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Produktbilder <span class="text-danger">*</span> </label>
+
+        <div class="row g-3 mb-3">
+          @for (preview of productForm.previews().value(); track $index) {
+            <div class="col-md-3">
+              <div class="position-relative">
+                <img
+                  [src]="preview"
+                  class="img-fluid rounded border"
+                  style="height: 180px; width: 100%; object-fit: cover"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                  (click)="removePreviewImage($index)"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <input
+          #fileInput
+          type="file"
+          multiple
+          accept="image/*"
+          class="form-control"
+          (change)="onImageSelected($event)"
+          [class.is-valid]="productForm.images().valid() && imageTouched()"
+          [class.is-invalid]="productForm.images().invalid() && imageTouched()"
+        />
+
+        @if (imageTouched()) {
+          @for (error of productForm.images().errors(); track error.kind) {
+            <div class="invalid-feedback d-block">
+              {{ error.message }}
+            </div>
+          }
+        }
+
+        @if (uploading()) {
+          <div class="alert alert-info text-center my-3">Uploading image...</div>
+        }
+      </div>
+
+      <!-- TITLE -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Name <span class="text-danger">*</span> </label>
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Produktname"
+          [formField]="productForm.title"
+          [class.is-valid]="productForm.title().touched() && productForm.title().valid()"
+          [class.is-invalid]="productForm.title().touched() && productForm.title().invalid()"
+        />
+
+        @if (productForm.title().touched()) {
+          @for (error of productForm.title().errors(); track error.kind) {
+            <div class="invalid-feedback">
+              {{ error.message }}
+            </div>
+          }
+        }
+      </div>
+
+      <!-- SLUG -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Slug <span class="text-danger">*</span> </label>
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="produkt-slug"
+          [formField]="productForm.slug"
+        />
+      </div>
+
+      <!-- PRICE -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Preis <span class="text-danger">*</span> </label>
+
+        <input type="number" class="form-control" [formField]="productForm.price" />
+      </div>
+
+      <!-- CATEGORY -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Kategorie <span class="text-danger">*</span> </label>
+
+        <select class="form-select" [formField]="productForm.category">
+          <option value="">Kategorie auswählen</option>
+
+          @for (category of categories() ?? []; track category.id) {
+            <option [value]="category.id">
+              {{ category.name }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="mb-4">
+        <label class="form-label fw-bold"> Beschreibung <span class="text-danger">*</span> </label>
+
+        <textarea rows="5" class="form-control" [formField]="productForm.description"></textarea>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="d-flex justify-content-end gap-3">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="router.navigate(['/admin/products'])"
+        >
+          Abbrechen
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="loading() || uploading() || productForm().invalid()"
+          (click)="saveProduct()"
+        >
+          @if (loading()) {
+            Speichern...
+          } @else {
+            {{ id() ? 'Aktualisieren' : 'Speichern' }}
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

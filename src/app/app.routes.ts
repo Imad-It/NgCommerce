@@ -63,6 +63,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'products/new',
+        loadComponent: () =>
+          import('./features/admin/pages/products/admin-product-form-page/admin-product-form-page.component').then(
+            (m) => m.AdminProductFormPageComponent,
+          ),
+      },
+      {
         path: 'products/:id',
         loadComponent: () =>
           import('./features/admin/pages/products/admin-product-details-page/admin-product-details-page.component').then(

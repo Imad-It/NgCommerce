@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { LoadingService } from '../../../core/services/loading/loading.service';
 import { finalize } from 'rxjs/operators';
 import { ProductQuery } from '../models/product-query.model';
+import { Category } from '../../categories/models/category.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,6 +36,16 @@ export class ProductService {
 
   getProductById(id: string) {
     return this.http.get<Product>(`${this.baseUrl}/products/${id}`);
+  }
+  createProduct(data: {
+    title: string;
+    slug: string;
+    price: number;
+    description: string;
+    categoryId: number;
+    images: string[];
+  }): Observable<Product> {
+    return this.http.post<Product>(`${this.baseUrl}/products`, data);
   }
 
   deleteProducts(id: number): Observable<boolean> {

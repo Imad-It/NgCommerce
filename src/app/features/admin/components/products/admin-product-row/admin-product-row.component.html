@@ -1,7 +1,7 @@
 <!-- IMAGE -->
 <td>
   @if (product().images[0]?.startsWith('http')) {
-    <img [src]="product().images[0]" class="img rounded border" />
+    <img [src]="product().images[0]" class="img rounded border" crossorigin="anonymous" />
   } @else {
     <div
       class="d-flex align-items-center justify-content-center rounded border bg-light"
