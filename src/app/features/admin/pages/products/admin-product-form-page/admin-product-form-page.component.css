@@ -1,0 +1,14 @@
+.carousel-item.active {
+  /*border: 3px solid #0d6efd;
+  */
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  background-color: #f8f9fa !important;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}

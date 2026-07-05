@@ -26,7 +26,7 @@ export class AdminProductFormPageComponent {
   categories = toSignal(this.categoryService.getCategories());
 
   private signalParam = toSignal(this.route.paramMap);
-
+  activeIndex = signal<number>(0);
   private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
@@ -109,62 +109,27 @@ export class AdminProductFormPageComponent {
     });
   }
 
+  onRemoveImage(index: number) {
+    this.removePreviewImage(index);
+  }
+
   removePreviewImage(index: number): void {
     this.productForm.previews().value.update((current) => current.filter((_, i) => i !== index));
 
     this.productForm.images().value.update((current) => current.filter((_, i) => i !== index));
+
+    const length = this.productForm.previews().value().length;
+
+    if (length === 0) {
+      this.activeIndex.set(0);
+      return;
+    }
+
+    if (this.activeIndex() >= length) {
+      this.activeIndex.set(length - 1);
+    }
   }
 
-  // submit(): void {
-  //   if (this.productForm().invalid()) {
-  //     // this.productForm.markAllAsTouched();
-  //     return;
-  //   }
-
-  //   const product = {
-  //     title: this.productForm.title().value(),
-  //     slug: this.productForm.slug().value(),
-  //     price: Number(this.productForm.price().value()),
-  //     description: this.productForm.description().value(),
-  //     categoryId: Number(this.productForm.category().value()),
-  //     images: this.productForm.images().value(),
-  //   };
-
-  //   console.log('#######', product);
-
-  //   // hier später API-Aufruf
-  // }
-  // submit(): void {
-  //   console.log('submit clicked');
-
-  //   const invalid = this.productForm().invalid();
-
-  //   console.log('invalid:', invalid);
-
-  //   if (invalid) {
-  //     console.log({
-  //       title: this.productForm.title().invalid(),
-  //       slug: this.productForm.slug().invalid(),
-  //       price: this.productForm.price().invalid(),
-  //       description: this.productForm.description().invalid(),
-  //       category: this.productForm.category().invalid(),
-  //       images: this.productForm.images().invalid(),
-  //     });
-
-  //     return;
-  //   }
-
-  //   const product = {
-  //     title: this.productForm.title().value(),
-  //     slug: this.productForm.slug().value(),
-  //     price: Number(this.productForm.price().value()),
-  //     description: this.productForm.description().value(),
-  //     categoryId: Number(this.productForm.category().value()),
-  //     images: this.productForm.images().value(),
-  //   };
-
-  //   this.productService.createProduct(product);
-  // }
   saveProduct() {
     if (this.productForm().invalid()) {
       console.log('FORM INVALID');
@@ -184,7 +149,6 @@ export class AdminProductFormPageComponent {
 
     this.productService.createProduct(data).subscribe({
       next: () => {
-        console.log('#####', this.productForm().value());
         this.resetForm();
 
         this.notificationService.showSuccess('Created', 'Product created successfully');
@@ -215,5 +179,17 @@ export class AdminProductFormPageComponent {
 
     this.productForm.images().value.set([]);
     this.productForm.previews().value.set([]);
+  }
+
+  previous() {
+    const length = this.productForm.previews().value().length;
+    if (length <= 1) return;
+    this.activeIndex.update((index) => (index - 1 + length) % length);
+  }
+
+  next() {
+    const length = this.productForm.previews().value().length;
+    if (length <= 1) return;
+    this.activeIndex.update((index) => (index + 1) % length);
   }
 }

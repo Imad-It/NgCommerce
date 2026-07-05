@@ -11,27 +11,46 @@
       <div class="mb-4">
         <label class="form-label fw-bold"> Produktbilder <span class="text-danger">*</span> </label>
 
-        <div class="row g-3 mb-3">
-          @for (preview of productForm.previews().value(); track $index) {
-            <div class="col-md-3">
-              <div class="position-relative">
-                <img
-                  [src]="preview"
-                  class="img-fluid rounded border"
-                  style="height: 180px; width: 100%; object-fit: cover"
-                />
-
-                <button
-                  type="button"
-                  class="btn btn-danger btn-sm position-absolute top-0 end-0"
-                  (click)="removePreviewImage($index)"
-                >
-                  ✕
-                </button>
+        @if (productForm.previews().value().length > 0) {
+          <div class="mb-3">
+            <div id="carouselExample" class="position-relative">
+              <div class="carousel-inner">
+                @for (preview of productForm.previews().value(); track $index; let i = $index) {
+                  <div class="carousel-item" [class.active]="i === activeIndex()">
+                    <div class="">
+                      <img
+                        [src]="preview"
+                        class="d-block w-100 rounded border"
+                        style="height: 350px; object-fit: contain"
+                        crossorigin="anonymous"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                      style="z-index: 9999"
+                      (click)="onRemoveImage(i)"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                }
               </div>
+
+              @if (productForm.previews().value().length > 1) {
+                <button class="carousel-control-prev" type="button" (click)="previous()">
+                  <span class="carousel-control-prev-icon"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" (click)="next()">
+                  <span class="carousel-control-next-icon"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              }
             </div>
-          }
-        </div>
+          </div>
+        }
 
         <input
           #fileInput
@@ -88,7 +107,17 @@
           class="form-control"
           placeholder="produkt-slug"
           [formField]="productForm.slug"
+          [class.is-valid]="productForm.slug().touched() && productForm.slug().valid()"
+          [class.is-invalid]="productForm.slug().touched() && productForm.slug().invalid()"
         />
+
+        @if (productForm.slug().touched()) {
+          @for (error of productForm.slug().errors(); track error.kind) {
+            <div class="invalid-feedback">
+              {{ error.message }}
+            </div>
+          }
+        }
       </div>
 
       <!-- PRICE -->
@@ -139,10 +168,11 @@
           @if (loading()) {
             Speichern...
           } @else {
-            {{ id() ? 'Aktualisieren' : 'Speichern' }}
+            {{ id() ? 'Update' : 'Save' }}
           }
         </button>
       </div>
     </div>
   </div>
 </div>
+```
