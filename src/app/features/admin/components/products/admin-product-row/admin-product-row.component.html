@@ -42,7 +42,10 @@
     </button>
 
     <!-- EDIT -->
-    <button class="btn btn-outline-warning btn-sm d-inline-flex align-items-center">
+    <button
+      class="btn btn-outline-warning btn-sm d-inline-flex align-items-center"
+      [routerLink]="['/admin/products', product().id, 'edit']"
+    >
       <fa-icon [icon]="faEdit"></fa-icon>
       <span class="d-none d-md-inline text-nowrap ms-1">Edit</span>
     </button>

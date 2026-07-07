@@ -76,6 +76,13 @@ export const routes: Routes = [
             (m) => m.AdminProductDetailsPageComponent,
           ),
       },
+      {
+        path: 'products/:id/edit',
+        loadComponent: () =>
+          import('./features/admin/pages/products/admin-product-form-page/admin-product-form-page.component').then(
+            (m) => m.AdminProductFormPageComponent,
+          ),
+      },
     ],
   },
 ];

@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../categories/services/category.service';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
@@ -7,6 +7,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Product } from '../../../../products/models/product.model';
 
 @Component({
   selector: 'app-admin-product-form-page',
@@ -48,11 +49,11 @@ export class AdminProductFormPageComponent {
 
   productForm = form(this.productModel, (schema) => {
     required(schema.title, {
-      message: 'Name ist erforderlich',
+      message: 'Name is required',
     });
 
     minLength(schema.title, 4, {
-      message: 'Mindestens 4 Zeichen',
+      message: 'Must be at least 4 characters',
     });
 
     required(schema.slug);
@@ -60,7 +61,33 @@ export class AdminProductFormPageComponent {
     required(schema.description);
     required(schema.category);
     required(schema.images, {
-      message: 'Mindestens ein Bild auswählen',
+      message: 'At least one image is required',
+    });
+  });
+
+  // LOAD CATEGORY
+  private loadProduct = effect(() => {
+    const id = this.id();
+
+    if (!id) {
+      this.resetForm();
+      return;
+    }
+
+    this.productService.getProductById(id).subscribe({
+      next: (product: Product) => {
+        this.productForm.id().value.set(product.id.toString());
+        this.productForm.title().value.set(product.title);
+        this.productForm.price().value.set(product.price.toString());
+        this.productForm.description().value.set(product.description);
+        this.productForm.slug().value.set(product.slug);
+        this.productForm.images().value.set(product.images);
+        this.productForm.previews().value.set(product.images);
+      },
+
+      error: (err) => {
+        console.error('Error loading category:', err);
+      },
     });
   });
 
@@ -98,7 +125,7 @@ export class AdminProductFormPageComponent {
       error: (error) => {
         console.error(error);
 
-        this.notificationService.showError('Error', 'Fehler beim Hochladen der Bilder');
+        this.notificationService.showError('Error', 'Error uploading images');
 
         this.uploading.set(false);
       },
