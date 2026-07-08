@@ -51,4 +51,18 @@ export class ProductService {
   deleteProducts(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.baseUrl}/products/${id}`);
   }
+
+  updateProduct(
+    id: number,
+    data: {
+      title: string;
+      slug: string;
+      price: number;
+      description: string;
+      categoryId: number;
+      images: string[];
+    },
+  ): Observable<Category> {
+    return this.http.put<Category>(`${this.baseUrl}/products/${id}`, data);
+  }
 }

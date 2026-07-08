@@ -48,24 +48,18 @@ export class AdminProductFormPageComponent {
   });
 
   productForm = form(this.productModel, (schema) => {
-    required(schema.title, {
-      message: 'Name is required',
-    });
+    required(schema.title, { message: 'Name is required' });
 
-    minLength(schema.title, 4, {
-      message: 'Must be at least 4 characters',
-    });
+    minLength(schema.title, 4, { message: 'Must be at least 4 characters' });
 
-    required(schema.slug);
-    required(schema.price);
-    required(schema.description);
-    required(schema.category);
-    required(schema.images, {
-      message: 'At least one image is required',
-    });
+    required(schema.slug, { message: 'At least one image is required' });
+    required(schema.price, { message: 'At least one image is required' });
+    required(schema.description, { message: 'At least one image is required' });
+    required(schema.category, { message: 'At least one image is required' });
+    required(schema.images, { message: 'At least one image is required' });
   });
 
-  // LOAD CATEGORY
+  // LOAD PRODUCT
   private loadProduct = effect(() => {
     const id = this.id();
 
@@ -81,6 +75,7 @@ export class AdminProductFormPageComponent {
         this.productForm.price().value.set(product.price.toString());
         this.productForm.description().value.set(product.description);
         this.productForm.slug().value.set(product.slug);
+        this.productForm.category().value.set(product.category.id.toString());
         this.productForm.images().value.set(product.images);
         this.productForm.previews().value.set(product.images);
       },
@@ -188,6 +183,38 @@ export class AdminProductFormPageComponent {
       error: (err) => {
         console.error(err);
 
+        this.notificationService.showError('Error', 'Operation failed. Please try again.');
+      },
+
+      complete: () => {
+        this.loading.set(false);
+      },
+    });
+  }
+
+  editProduct() {
+    const id = this.id();
+    if (!id) return;
+
+    this.loading.set(true);
+
+    const data = {
+      title: this.productForm.title().value(),
+      slug: this.productForm.slug().value(),
+      price: Number(this.productForm.price().value()),
+      description: this.productForm.description().value(),
+      categoryId: Number(this.productForm.category().value()),
+      images: this.productForm.images().value(),
+    };
+
+    this.productService.updateProduct(Number(id), data).subscribe({
+      next: () => {
+        this.notificationService.showSuccess('Updated', 'Product updated successfully');
+        this.router.navigate(['../..'], { relativeTo: this.route });
+      },
+
+      error: (err) => {
+        console.error(err);
         this.notificationService.showError('Error', 'Operation failed. Please try again.');
       },
 

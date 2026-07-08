@@ -109,7 +109,12 @@
           </button>
 
           <!-- Edit Button -->
-          <button class="btn btn-primary px-5">Edit Product</button>
+          <button
+            class="btn btn-primary px-5"
+            [routerLink]="['/admin/products', product()?.id, 'edit']"
+          >
+            Edit Product
+          </button>
         </div>
       </div>
     </div>

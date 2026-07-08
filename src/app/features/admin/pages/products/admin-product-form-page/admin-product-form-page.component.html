@@ -132,7 +132,7 @@
         <label class="form-label fw-bold"> Kategorie <span class="text-danger">*</span> </label>
 
         <select class="form-select" [formField]="productForm.category">
-          <option value="">Kategorie auswählen</option>
+          <option value="">Select a category</option>
 
           @for (category of categories() ?? []; track category.id) {
             <option [value]="category.id">
@@ -156,21 +156,36 @@
           class="btn btn-outline-secondary"
           (click)="router.navigate(['/admin/products'])"
         >
-          Abbrechen
+          Cancel
         </button>
 
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="loading() || uploading() || productForm().invalid()"
-          (click)="saveProduct()"
-        >
-          @if (loading()) {
-            Speichern...
-          } @else {
-            {{ id() ? 'Update' : 'Save' }}
-          }
-        </button>
+        @if (id()) {
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="loading() || uploading() || productForm().invalid()"
+            (click)="editProduct()"
+          >
+            @if (loading()) {
+              Updating ...
+            } @else {
+              update
+            }
+          </button>
+        } @else {
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="loading() || uploading() || productForm().invalid()"
+            (click)="saveProduct()"
+          >
+            @if (loading()) {
+              Saving ...
+            } @else {
+              Save Product
+            }
+          </button>
+        }
       </div>
     </div>
   </div>
