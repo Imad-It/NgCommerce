@@ -7,6 +7,13 @@ export const routes: Routes = [
       import('./layouts/shop-layout/shop-layout.component').then((m) => m.ShopLayoutComponent),
     children: [
       {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/auth/components/login-form/login-form.component').then(
+            (m) => m.LoginFormComponent,
+          ),
+      },
+      {
         path: 'products',
         loadComponent: () =>
           import('./features/products/pages/products-page/products-page.component').then(
