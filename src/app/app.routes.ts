@@ -9,9 +9,7 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () =>
-          import('./features/auth/components/login-form/login-form.component').then(
-            (m) => m.LoginFormComponent,
-          ),
+          import('./features/auth/pages/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'products',

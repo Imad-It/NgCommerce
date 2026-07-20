@@ -1,52 +1,42 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-5">
-      <div class="card shadow-sm">
-        <div class="card-body p-4">
-          <h2 class="text-center mb-4">Sign In</h2>
+<h2 class="text-center mb-4">Sign In</h2>
 
-          <form>
-            <div class="mb-3">
-              <label for="email" class="form-label"> Email Address </label>
+<form>
+  <div class="mb-3">
+    <label for="email" class="form-label"> Email Address </label>
 
-              <input
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="Enter your email"
-                autocomplete="email"
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label"> Password </label>
-
-              <input
-                id="password"
-                type="password"
-                class="form-control"
-                placeholder="Enter your password"
-                autocomplete="current-password"
-              />
-            </div>
-
-            <div class="form-check mb-4">
-              <input class="form-check-input" type="checkbox" id="rememberMe" />
-
-              <label class="form-check-label" for="rememberMe"> Remember me </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Sign In</button>
-          </form>
-
-          <hr />
-
-          <p class="text-center mb-0">
-            Don't have an account?
-            <a routerLink="/auth/register" class="text-decoration-none"> Create one </a>
-          </p>
-        </div>
-      </div>
-    </div>
+    <input
+      id="email"
+      type="email"
+      class="form-control"
+      placeholder="Enter your email"
+      autocomplete="email"
+    />
   </div>
-</div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label"> Password </label>
+
+    <input
+      id="password"
+      type="password"
+      class="form-control"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+    />
+  </div>
+
+  <div class="form-check mb-4">
+    <input class="form-check-input" type="checkbox" id="rememberMe" />
+
+    <label class="form-check-label" for="rememberMe"> Remember me </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100">Sign In</button>
+</form>
+
+<hr />
+
+<p class="text-center mb-0">
+  Don't have an account?
+  <a routerLink="/auth/register" class="text-decoration-none"> Create one </a>
+</p>
