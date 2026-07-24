@@ -12,21 +12,24 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginFormComponent {
   private authService = inject(AuthService);
-  loginRequestModel = signal({ email: '', password: '' });
+  loginFormModel = signal({ email: '', password: '' });
   readonly formUtils = formUtils;
 
-  loginRequestForm = form(this.loginRequestModel, (schema) => {
+  loginForm = form(this.loginFormModel, (schema) => {
     required(schema.email, { message: 'Name is required.' });
     email(schema.email, { message: 'Please enter a valid email address.' });
     required(schema.password, { message: 'Name is required.' });
   });
 
   login() {
-    const credential = {
-      email: this.loginRequestForm.email().value(),
-      password: this.loginRequestForm.password().value(),
+    if (this.loginForm().invalid()) {
+      return;
+    }
+    const credentials = {
+      email: this.loginForm.email().value(),
+      password: this.loginForm.password().value(),
     };
-    console.log('#######', credential);
-    this.authService.login(credential);
+
+    this.authService.login(credentials);
   }
 }

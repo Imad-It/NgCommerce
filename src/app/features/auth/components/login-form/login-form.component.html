@@ -9,18 +9,18 @@
     class="form-control"
     placeholder="Enter your email"
     autocomplete="email"
-    [formField]="loginRequestForm.email"
-    [class.is-valid]="formUtils.isValid(loginRequestForm.email)"
-    [class.is-invalid]="formUtils.isInvalid(loginRequestForm.email)"
+    [formField]="loginForm.email"
+    [class.is-valid]="formUtils.isValid(loginForm.email)"
+    [class.is-invalid]="formUtils.isInvalid(loginForm.email)"
   />
-</div>
-@if (loginRequestForm.email().touched() && loginRequestForm.email().invalid()) {
-  @for (error of loginRequestForm.email().errors(); track error.kind) {
-    <div class="invalid-feedback">
-      {{ error.message }}
-    </div>
+  @if (loginForm.email().touched() && loginForm.email().invalid()) {
+    @for (error of loginForm.email().errors(); track error.kind) {
+      <div class="invalid-feedback">
+        {{ error.message }}
+      </div>
+    }
   }
-}
+</div>
 
 <div class="mb-3">
   <label for="password" class="form-label"> Password </label>
@@ -31,18 +31,18 @@
     class="form-control"
     placeholder="Enter your password"
     autocomplete="current-password"
-    [formField]="loginRequestForm.password"
-    [class.is-valid]="formUtils.isValid(loginRequestForm.password)"
-    [class.is-invalid]="formUtils.isInvalid(loginRequestForm.password)"
+    [formField]="loginForm.password"
+    [class.is-valid]="formUtils.isValid(loginForm.password)"
+    [class.is-invalid]="formUtils.isInvalid(loginForm.password)"
   />
-</div>
-@if (loginRequestForm.password().touched() && loginRequestForm.password().invalid()) {
-  @for (error of loginRequestForm.password().errors(); track error.kind) {
-    <div class="invalid-feedback">
-      {{ error.message }}
-    </div>
+  @if (loginForm.password().touched() && loginForm.password().invalid()) {
+    @for (error of loginForm.password().errors(); track error.kind) {
+      <div class="invalid-feedback">
+        {{ error.message }}
+      </div>
+    }
   }
-}
+</div>
 
 <div class="form-check mb-4">
   <input class="form-check-input" type="checkbox" id="rememberMe" />
@@ -53,7 +53,7 @@
 <button
   type="submit"
   class="btn btn-primary w-100"
-  [disabled]="loginRequestForm().invalid()"
+  [disabled]="loginForm().invalid()"
   (click)="login()"
 >
   Sign In
