@@ -1,38 +1,63 @@
 <h2 class="text-center mb-4">Sign In</h2>
 
-<form>
-  <div class="mb-3">
-    <label for="email" class="form-label"> Email Address </label>
+<div class="mb-3">
+  <label for="email" class="form-label"> Email Address </label>
 
-    <input
-      id="email"
-      type="email"
-      class="form-control"
-      placeholder="Enter your email"
-      autocomplete="email"
-    />
-  </div>
+  <input
+    id="email"
+    type="email"
+    class="form-control"
+    placeholder="Enter your email"
+    autocomplete="email"
+    [formField]="loginRequestForm.email"
+    [class.is-valid]="formUtils.isValid(loginRequestForm.email)"
+    [class.is-invalid]="formUtils.isInvalid(loginRequestForm.email)"
+  />
+</div>
+@if (loginRequestForm.email().touched() && loginRequestForm.email().invalid()) {
+  @for (error of loginRequestForm.email().errors(); track error.kind) {
+    <div class="invalid-feedback">
+      {{ error.message }}
+    </div>
+  }
+}
 
-  <div class="mb-3">
-    <label for="password" class="form-label"> Password </label>
+<div class="mb-3">
+  <label for="password" class="form-label"> Password </label>
 
-    <input
-      id="password"
-      type="password"
-      class="form-control"
-      placeholder="Enter your password"
-      autocomplete="current-password"
-    />
-  </div>
+  <input
+    id="password"
+    type="password"
+    class="form-control"
+    placeholder="Enter your password"
+    autocomplete="current-password"
+    [formField]="loginRequestForm.password"
+    [class.is-valid]="formUtils.isValid(loginRequestForm.password)"
+    [class.is-invalid]="formUtils.isInvalid(loginRequestForm.password)"
+  />
+</div>
+@if (loginRequestForm.password().touched() && loginRequestForm.password().invalid()) {
+  @for (error of loginRequestForm.password().errors(); track error.kind) {
+    <div class="invalid-feedback">
+      {{ error.message }}
+    </div>
+  }
+}
 
-  <div class="form-check mb-4">
-    <input class="form-check-input" type="checkbox" id="rememberMe" />
+<div class="form-check mb-4">
+  <input class="form-check-input" type="checkbox" id="rememberMe" />
 
-    <label class="form-check-label" for="rememberMe"> Remember me </label>
-  </div>
+  <label class="form-check-label" for="rememberMe"> Remember me </label>
+</div>
 
-  <button type="submit" class="btn btn-primary w-100">Sign In</button>
-</form>
+<button
+  type="submit"
+  class="btn btn-primary w-100"
+  [disabled]="loginRequestForm().invalid()"
+  (click)="login()"
+>
+  Sign In
+</button>
 
 <hr />
 
