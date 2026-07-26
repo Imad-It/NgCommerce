@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginFormComponent {
   private authService = inject(AuthService);
-  loginFormModel = signal({ email: '', password: '' });
   readonly formUtils = formUtils;
+  loginFormModel = signal({ email: '', password: '' });
 
   loginForm = form(this.loginFormModel, (schema) => {
     required(schema.email, { message: 'Name is required.' });
@@ -30,6 +30,9 @@ export class LoginFormComponent {
       password: this.loginForm.password().value(),
     };
 
-    this.authService.login(credentials);
+    this.authService.login(credentials).subscribe({
+      next: () => console.log('login Successful'),
+      error: (error) => console.error('Login failed.', error),
+    });
   }
 }
