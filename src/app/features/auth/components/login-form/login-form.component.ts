@@ -3,6 +3,7 @@ import { email, form, required, FormField } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import * as formUtils from '../../../../shared/utils/form.util';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginFormComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
   readonly formUtils = formUtils;
   loginFormModel = signal({ email: '', password: '' });
 
@@ -31,7 +33,13 @@ export class LoginFormComponent {
     };
 
     this.authService.login(credentials).subscribe({
-      next: () => console.log('login Successful'),
+      next: (user) => {
+        if (user.role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/products']);
+        }
+      },
       error: (error) => console.error('Login failed.', error),
     });
   }
