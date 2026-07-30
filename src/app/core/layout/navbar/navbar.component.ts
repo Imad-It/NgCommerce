@@ -4,6 +4,7 @@ import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../../features/cart/services/cart.service';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent {
   private cartService = inject(CartService);
+  authService = inject(AuthService);
   faCartShopping = faCartShopping;
   faUser = faUser;
   showNavbar = signal(false);

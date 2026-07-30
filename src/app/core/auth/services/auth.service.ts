@@ -6,16 +6,17 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/internal/operators/tap';
 import { User } from '../../../features/auth/models/user.model';
 import { switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
-
+  private router = inject(Router);
   private readonly apiUrl = 'https://api.escuelajs.co/api/v1';
   private token = signal<string | null>(localStorage.getItem('token'));
-  private currentUser = signal<User | null>(null);
+  currentUser = signal<User | null>(null);
 
   login(credentials: LoginRequest): Observable<User> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials).pipe(
@@ -43,6 +44,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.token.set(null);
     this.currentUser.set(null);
+    this.router.navigate(['/login']);
   }
 
   loadProfil(): Observable<User> {
