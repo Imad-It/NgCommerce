@@ -21,6 +21,16 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.token() !== null);
   readonly isAdmin = computed(() => this.currentUser()?.role === 'admin');
 
+  initializeAuth(): void {
+    if (this.token()) {
+      this.loadProfile().subscribe({
+        error: () => {
+          this.logout();
+        },
+      });
+    }
+  }
+
   login(credentials: LoginRequest): Observable<User> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap((response) => {
