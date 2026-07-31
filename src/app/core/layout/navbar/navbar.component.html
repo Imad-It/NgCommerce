@@ -31,7 +31,7 @@
     <li class="nav-item">
       <a
         class="nav-link fw-bold rounded-3"
-        routerLink="/products"
+        [routerLink]="authService.isAdmin() ? '/admin/products' : '/products'"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
       >
@@ -41,7 +41,7 @@
     <li class="nav-item">
       <a
         class="nav-link fw-bold rounded-3"
-        routerLink="/categories"
+        [routerLink]="authService.isAdmin() ? '/admin/categories' : '/categories'"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true, queryParams: 'exact' }"
       >
@@ -62,23 +62,25 @@
     class="navbar-nav d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 ms-lg-4"
   >
     <!-- Cart -->
-    <li class="nav-item">
-      <a
-        class="position-relative d-inline-flex align-items-center"
-        routerLink="/cart"
-        routerLinkActive="active-cart"
-      >
-        <fa-icon [icon]="faCartShopping" size="2x" class="cart-icon"></fa-icon>
+    @if (!authService.isAdmin()) {
+      <li class="nav-item">
+        <a
+          class="position-relative d-inline-flex align-items-center"
+          routerLink="/cart"
+          routerLinkActive="active-cart"
+        >
+          <fa-icon [icon]="faCartShopping" size="2x" class="cart-icon"></fa-icon>
 
-        @if (cartCount() > 0) {
-          <span
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          >
-            {{ cartCount() }}
-          </span>
-        }
-      </a>
-    </li>
+          @if (cartCount() > 0) {
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              {{ cartCount() }}
+            </span>
+          }
+        </a>
+      </li>
+    }
 
     <!-- User Dropdown -->
     @let user = authService.currentUser();
@@ -119,7 +121,7 @@
           </li>
 
           <li>
-            <button class="dropdown-item" (click)="authService.logout()">Logout</button>
+            <button class="dropdown-item text-danger" (click)="authService.logout()">Logout</button>
           </li>
         } @else {
           <li>
@@ -127,7 +129,7 @@
           </li>
 
           <li>
-            <a class="dropdown-item" routerLink="/register"> Registrieren </a>
+            <a class="dropdown-item" routerLink="/register"> Register </a>
           </li>
         }
       </ul>

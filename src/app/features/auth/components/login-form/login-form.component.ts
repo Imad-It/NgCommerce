@@ -35,7 +35,7 @@ export class LoginFormComponent {
     this.authService.login(credentials).subscribe({
       next: (user) => {
         if (user.role === 'admin') {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/admin/products']);
         } else {
           this.router.navigate(['/products']);
         }
