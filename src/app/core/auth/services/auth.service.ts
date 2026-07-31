@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { LoginRequest } from '../../../features/auth/models/login-request.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { LoginResponse } from '../../../features/auth/models/login-response.model';
@@ -15,8 +15,11 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private router = inject(Router);
   private readonly apiUrl = 'https://api.escuelajs.co/api/v1';
-  private token = signal<string | null>(localStorage.getItem('token'));
-  currentUser = signal<User | null>(null);
+  private readonly token = signal<string | null>(localStorage.getItem('token'));
+  readonly currentUser = signal<User | null>(null);
+
+  readonly isAuthenticated = computed(() => this.token() !== null);
+  readonly isAdmin = computed(() => this.currentUser()?.role === 'admin');
 
   login(credentials: LoginRequest): Observable<User> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials).pipe(
@@ -24,20 +27,12 @@ export class AuthService {
         localStorage.setItem('token', response.access_token);
         this.token.set(response.access_token);
       }),
-      switchMap(() => this.loadProfil()),
+      switchMap(() => this.loadProfile()),
     );
-  }
-
-  isAuthenticated(): boolean {
-    return this.token() !== null;
   }
 
   getToken(): string | null {
     return this.token();
-  }
-
-  isAdmin(): boolean {
-    return this.currentUser()?.role === 'admin';
   }
 
   logout(): void {
@@ -47,11 +42,9 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  loadProfil(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/auth/profile`).pipe(
-      tap((user) => {
-        return this.currentUser.set(user);
-      }),
-    );
+  loadProfile(): Observable<User> {
+    return this.http
+      .get<User>(`${this.apiUrl}/auth/profile`)
+      .pipe(tap((user) => this.currentUser.set(user)));
   }
 }
