@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { AuthService } from './core/auth/services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAppInitializer(() => {
       const authService = inject(AuthService);
-      authService.initializeAuth();
+      return firstValueFrom(authService.initializeAuth());
     }),
   ],
 };

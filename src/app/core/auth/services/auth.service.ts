@@ -5,7 +5,7 @@ import { LoginResponse } from '../../../features/auth/models/login-response.mode
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/internal/operators/tap';
 import { User } from '../../../features/auth/models/user.model';
-import { switchMap } from 'rxjs';
+import { catchError, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -21,14 +21,17 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.token() !== null);
   readonly isAdmin = computed(() => this.currentUser()?.role === 'admin');
 
-  initializeAuth(): void {
-    if (this.token()) {
-      this.loadProfile().subscribe({
-        error: () => {
-          this.logout();
-        },
-      });
+  initializeAuth(): Observable<User | null> {
+    if (!this.token()) {
+      return of(null);
     }
+
+    return this.loadProfile().pipe(
+      catchError(() => {
+        this.logout();
+        return of(null);
+      }),
+    );
   }
 
   login(credentials: LoginRequest): Observable<User> {
@@ -41,6 +44,12 @@ export class AuthService {
     );
   }
 
+  loadProfile(): Observable<User> {
+    return this.http
+      .get<User>(`${this.apiUrl}/auth/profile`)
+      .pipe(tap((user) => this.currentUser.set(user)));
+  }
+
   getToken(): string | null {
     return this.token();
   }
@@ -50,11 +59,5 @@ export class AuthService {
     this.token.set(null);
     this.currentUser.set(null);
     this.router.navigate(['/login']);
-  }
-
-  loadProfile(): Observable<User> {
-    return this.http
-      .get<User>(`${this.apiUrl}/auth/profile`)
-      .pipe(tap((user) => this.currentUser.set(user)));
   }
 }
