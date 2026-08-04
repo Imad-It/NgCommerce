@@ -47,7 +47,7 @@ export class AuthService {
 
   loadProfile(): Observable<User> {
     return this.http
-      .get<User>(`${this.apiUrl}/auth/profile`)
+      .get<User>(`${this.baseUrl}/auth/profile`)
       .pipe(tap((user) => this.currentUser.set(user)));
   }
 

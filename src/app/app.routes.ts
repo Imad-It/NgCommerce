@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { adminGuard } from './core/auth/guards/admin.guard';
+import { authGuard } from './core/auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/categories/pages/categories-page/categories-page.component').then(
             (m) => m.CategoriesPageComponent,
+          ),
+      },
+      {
+        path: 'profile',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/profile/components/profile-detail/profile-detail.component').then(
+            (m) => m.ProfileDetailComponent,
           ),
       },
     ],
@@ -88,6 +97,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/pages/products/admin-product-form-page/admin-product-form-page.component').then(
             (m) => m.AdminProductFormPageComponent,
+          ),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profile/components/profile-detail/profile-detail.component').then(
+            (m) => m.ProfileDetailComponent,
           ),
       },
     ],
