@@ -7,6 +7,7 @@ import { tap } from 'rxjs/internal/operators/tap';
 import { User } from '../../../features/auth/models/user.model';
 import { catchError, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private router = inject(Router);
-  private readonly apiUrl = 'https://api.escuelajs.co/api/v1';
+  private readonly baseUrl = environment.apiUrl;
   private readonly token = signal<string | null>(localStorage.getItem('token'));
   readonly currentUser = signal<User | null>(null);
 
@@ -35,7 +36,7 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<User> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials).pipe(
+    return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, credentials).pipe(
       tap((response) => {
         localStorage.setItem('token', response.access_token);
         this.token.set(response.access_token);
