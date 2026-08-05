@@ -1,6 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressCard,
+  faArrowRightFromBracket,
+  faArrowRightToBracket,
+  faCartShopping,
+  faUser,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../../features/cart/services/cart.service';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -17,6 +24,10 @@ export class NavbarComponent {
   authService = inject(AuthService);
   faCartShopping = faCartShopping;
   faUser = faUser;
+  faArrowRightFromBracket = faArrowRightFromBracket;
+  faArrowRightToBracket = faArrowRightToBracket;
+  faUserPlus = faUserPlus;
+  faAddressCard = faAddressCard;
   showNavbar = signal(false);
   cartCount = computed(() =>
     this.cartService.cartItems().reduce((sum, item) => sum + item.quantity, 0),

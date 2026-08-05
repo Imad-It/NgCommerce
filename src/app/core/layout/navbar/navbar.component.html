@@ -117,19 +117,27 @@
           <li><hr class="dropdown-divider" /></li>
 
           <li>
-            <a class="dropdown-item" routerLink="/profile"> Profil </a>
+            <a class="dropdown-item" routerLink="/profile"
+              ><fa-icon [icon]="faAddressCard"></fa-icon> <span class="ms-3">Profile</span>
+            </a>
           </li>
 
           <li>
-            <button class="dropdown-item text-danger" (click)="authService.logout()">Logout</button>
+            <button class="dropdown-item text-danger" (click)="authService.logout()">
+              <fa-icon [icon]="faArrowRightFromBracket"></fa-icon><span class="ms-3">Logout</span>
+            </button>
           </li>
         } @else {
           <li>
-            <a class="dropdown-item" routerLink="/login"> Login </a>
+            <a class="dropdown-item" routerLink="/login"
+              ><fa-icon [icon]="faArrowRightToBracket"></fa-icon><span class="ms-3">Login</span>
+            </a>
           </li>
 
           <li>
-            <a class="dropdown-item" routerLink="/register"> Register </a>
+            <a class="dropdown-item" routerLink="/register"
+              ><fa-icon [icon]="faUserPlus"></fa-icon> <span class="ms-3">Register</span>
+            </a>
           </li>
         }
       </ul>
