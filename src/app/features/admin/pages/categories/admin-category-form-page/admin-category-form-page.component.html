@@ -54,10 +54,14 @@
               class="form-control"
               accept="image/*"
               (change)="onImageSelected($event)"
-              [class.is-valid]="categoryForm.image().valid() && imageTouched() && !uploading()"
-              [class.is-invalid]="categoryForm.image().invalid() && imageTouched() && !uploading()"
+              [class.is-valid]="
+                categoryForm.image().valid() && categoryForm.image().touched() && !uploading()
+              "
+              [class.is-invalid]="
+                categoryForm.image().invalid() && categoryForm.image().touched() && !uploading()
+              "
             />
-            @if (imageTouched() && !uploading()) {
+            @if (categoryForm.image().touched() && categoryForm.image().invalid() && !uploading()) {
               @for (error of categoryForm.image().errors(); track error.kind) {
                 <div class="invalid-feedback">
                   {{ error.message }}
@@ -78,7 +82,7 @@
               [class.is-valid]="formUtils.isValid(categoryForm.name)"
               [class.is-invalid]="formUtils.isInvalid(categoryForm.name)"
             />
-            @if (categoryForm.name().touched()) {
+            @if (categoryForm.name().touched() && categoryForm.name().invalid()) {
               @for (error of categoryForm.name().errors(); track error.kind) {
                 <div class="invalid-feedback">
                   {{ error.message }}
@@ -98,8 +102,8 @@
               [class.is-valid]="formUtils.isValid(categoryForm.slug)"
               [class.is-invalid]="formUtils.isInvalid(categoryForm.slug)"
             />
-            @if (categoryForm.slug().touched()) {
-              @for (error of categoryForm.name().errors(); track error.kind) {
+            @if (categoryForm.slug().touched() && categoryForm.slug().invalid()) {
+              @for (error of categoryForm.slug().errors(); track error.kind) {
                 <div class="invalid-feedback">
                   {{ error.message }}
                 </div>

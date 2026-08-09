@@ -151,15 +151,29 @@
             }
           </div>
 
-          <!-- Register BUTTON -->
-          <button
-            class="btn btn-primary btn-lg w-100"
-            [disabled]="loading() || registerForm().invalid()"
-          >
+          <!--  BUTTON -->
+          <div class="d-flex justify-content-end gap-3">
             @if (loading()) {
-              Registering...
+              <button class="btn btn-primary" [disabled]="loading() || registerForm().invalid()">
+                Registering...
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="router.navigate(['/products'])"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="router.navigate(['/products'])"
+              >
+                Register
+              </button>
             }
-          </button>
+          </div>
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterFormComponent {
   private readonly route = inject(ActivatedRoute);
+  readonly router = inject(Router);
   private signalParam = toSignal(this.route.paramMap);
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
   readonly formUtils = formUtils;

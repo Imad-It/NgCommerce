@@ -24,7 +24,7 @@ export class AdminCategoryFormPageComponent {
   private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   private signalParam = toSignal(this.route.paramMap);
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
-  imageTouched = signal<boolean>(false);
+
   categoryModel = signal({
     id: '',
     name: '',
@@ -72,7 +72,7 @@ export class AdminCategoryFormPageComponent {
 
   // IMAGE SELECT
   onImageSelected(event: Event): void {
-    this.imageTouched.set(true);
+    this.categoryForm.image().markAsTouched();
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
@@ -116,6 +116,7 @@ export class AdminCategoryFormPageComponent {
     this.categoryForm.image().value.set('');
     this.categoryForm.preview().value.set('');
     this.fileInput()!.nativeElement.value = '';
+    this.categoryForm.image().markAsTouched();
   }
 
   // SAVE CATEGORY (CREATE)

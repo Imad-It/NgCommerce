@@ -9,7 +9,9 @@
     <div class="card-body p-4">
       <!-- BILDER -->
       <div class="mb-4">
-        <label class="form-label fw-bold"> Produktbilder <span class="text-danger">*</span> </label>
+        <label class="form-label fw-bold">
+          Product images <span class="text-danger">*</span>
+        </label>
 
         @if (productForm.previews().value().length > 0) {
           <div class="mb-3">
@@ -59,11 +61,15 @@
           accept="image/*"
           class="form-control"
           (change)="onImageSelected($event)"
-          [class.is-valid]="productForm.images().valid() && imageTouched()"
-          [class.is-invalid]="productForm.images().invalid() && imageTouched()"
+          [class.is-valid]="
+            productForm.images().valid() && productForm.images().touched() && !uploading()
+          "
+          [class.is-invalid]="
+            productForm.images().invalid() && productForm.images().touched() && !uploading()
+          "
         />
 
-        @if (imageTouched()) {
+        @if (productForm.images().touched() && productForm.images().invalid() && !uploading()) {
           @for (error of productForm.images().errors(); track error.kind) {
             <div class="invalid-feedback d-block">
               {{ error.message }}
@@ -89,7 +95,7 @@
           [class.is-invalid]="productForm.title().touched() && productForm.title().invalid()"
         />
 
-        @if (productForm.title().touched()) {
+        @if (productForm.title().touched() && productForm.title().invalid()) {
           @for (error of productForm.title().errors(); track error.kind) {
             <div class="invalid-feedback">
               {{ error.message }}
@@ -111,7 +117,7 @@
           [class.is-invalid]="productForm.slug().touched() && productForm.slug().invalid()"
         />
 
-        @if (productForm.slug().touched()) {
+        @if (productForm.slug().touched() && productForm.slug().invalid()) {
           @for (error of productForm.slug().errors(); track error.kind) {
             <div class="invalid-feedback">
               {{ error.message }}
@@ -122,14 +128,14 @@
 
       <!-- PRICE -->
       <div class="mb-4">
-        <label class="form-label fw-bold"> Preis <span class="text-danger">*</span> </label>
+        <label class="form-label fw-bold"> Price <span class="text-danger">*</span> </label>
 
         <input type="number" class="form-control" [formField]="productForm.price" />
       </div>
 
       <!-- CATEGORY -->
       <div class="mb-4">
-        <label class="form-label fw-bold"> Kategorie <span class="text-danger">*</span> </label>
+        <label class="form-label fw-bold"> Categorie <span class="text-danger">*</span> </label>
 
         <select class="form-select" [formField]="productForm.category">
           <option value="">Select a category</option>
@@ -144,7 +150,7 @@
 
       <!-- DESCRIPTION -->
       <div class="mb-4">
-        <label class="form-label fw-bold"> Beschreibung <span class="text-danger">*</span> </label>
+        <label class="form-label fw-bold"> Description <span class="text-danger">*</span> </label>
 
         <textarea rows="5" class="form-control" [formField]="productForm.description"></textarea>
       </div>

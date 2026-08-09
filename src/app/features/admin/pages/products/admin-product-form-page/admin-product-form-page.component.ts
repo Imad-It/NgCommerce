@@ -34,7 +34,7 @@ export class AdminProductFormPageComponent {
 
   loading = signal(false);
   uploading = signal(false);
-  imageTouched = signal(false);
+  // imageTouched = signal(false);
 
   productModel = signal({
     id: '',
@@ -49,14 +49,16 @@ export class AdminProductFormPageComponent {
 
   productForm = form(this.productModel, (schema) => {
     required(schema.title, { message: 'Name is required' });
+    minLength(schema.title, 4, { message: 'Name must be at least 4 characters' });
 
-    minLength(schema.title, 4, { message: 'Must be at least 4 characters' });
+    required(schema.slug, { message: 'Slug is required' });
+    required(schema.price, { message: 'Price is required' });
+    required(schema.description, { message: 'Description is required' });
+    required(schema.category, { message: 'Category is required' });
 
-    required(schema.slug, { message: 'At least one image is required' });
-    required(schema.price, { message: 'At least one image is required' });
-    required(schema.description, { message: 'At least one image is required' });
-    required(schema.category, { message: 'At least one image is required' });
-    required(schema.images, { message: 'At least one image is required' });
+    minLength(schema.images, 1, {
+      message: 'At least one image is required',
+    });
   });
 
   // LOAD PRODUCT
@@ -87,13 +89,14 @@ export class AdminProductFormPageComponent {
   });
 
   onImageSelected(event: Event): void {
+    this.productForm.images().markAsTouched();
     const input = event.target as HTMLInputElement;
 
     if (!input.files?.length) return;
 
     const files = Array.from(input.files);
 
-    this.imageTouched.set(true);
+    // this.imageTouched.set(true);
     this.uploading.set(true);
 
     // Lokale Vorschau erzeugen
@@ -133,6 +136,10 @@ export class AdminProductFormPageComponent {
 
   onRemoveImage(index: number) {
     this.removePreviewImage(index);
+    if (index === 0) {
+      this.fileInput()!.nativeElement.value = '';
+      this.productForm.images().value.set([]);
+    }
   }
 
   removePreviewImage(index: number): void {
