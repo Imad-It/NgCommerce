@@ -42,6 +42,13 @@ export const routes: Routes = [
             (m) => m.ProfileDetailComponent,
           ),
       },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./features/auth/components/register-form/register-form.component').then(
+            (m) => m.RegisterFormComponent,
+          ),
+      },
     ],
   },
   {
