@@ -3,11 +3,11 @@ import { email, form, required, FormField } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import * as formUtils from '../../../../shared/utils/form.util';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
-  imports: [CommonModule, FormField],
+  imports: [CommonModule, FormField, RouterLink],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
 })

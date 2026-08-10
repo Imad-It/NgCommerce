@@ -45,8 +45,8 @@ export const routes: Routes = [
       {
         path: 'register',
         loadComponent: () =>
-          import('./features/auth/components/register-form/register-form.component').then(
-            (m) => m.RegisterFormComponent,
+          import('./features/auth/pages/register/register.component').then(
+            (m) => m.RegisterComponent,
           ),
       },
     ],
