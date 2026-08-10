@@ -6,7 +6,7 @@ import { Product } from '../../../../products/models/product.model';
 import { LoadingService } from '../../../../../core/services/loading/loading.service';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
-import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog/confirm-dialog.service';
 @Component({
   selector: 'app-admin-product-list',
   imports: [CommonModule, AdminProductRowComponent, ConfirmDialogComponent],

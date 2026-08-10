@@ -9,6 +9,7 @@ import { finalize, forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../../products/models/product.model';
 import { LoadingService } from '../../../../../core/services/loading/loading.service';
+import { FileUploadService } from '../../../../../shared/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-admin-product-form-page',
@@ -24,7 +25,7 @@ export class AdminProductFormPageComponent {
   private productService = inject(ProductService);
   private readonly notificationService = inject(NotificationService);
   private readonly loadingService = inject(LoadingService);
-
+  private readonly fileUploadService = inject(FileUploadService);
   products = toSignal(this.productService.getProducts());
   categories = toSignal(this.categoryService.getCategories());
 
@@ -115,7 +116,7 @@ export class AdminProductFormPageComponent {
     });
 
     // Upload aller Bilder
-    forkJoin(files.map((file) => this.categoryService.uploadImage(file))).subscribe({
+    forkJoin(files.map((file) => this.fileUploadService.uploadImage(file))).subscribe({
       next: (responses) => {
         const urls = responses.map((res) => res.location || res.url).filter(Boolean);
 

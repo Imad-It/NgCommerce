@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ConfirmDialogData, initialDialogData } from '../models/confirm-dialog-data.model';
+import { ConfirmDialogData, initialDialogData } from '../../models/confirm-dialog-data.model';
 
 type EntityType = 'Product' | 'Category';
 @Injectable({

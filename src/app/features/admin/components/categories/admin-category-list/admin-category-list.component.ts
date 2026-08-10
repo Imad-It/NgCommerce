@@ -5,7 +5,7 @@ import { AdminCategoryRowComponent } from '../admin-category-row/admin-category-
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
-import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-admin-category-list',

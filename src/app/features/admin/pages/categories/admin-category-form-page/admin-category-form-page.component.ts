@@ -8,6 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Category } from '../../../../categories/models/category.model';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
 import * as formUtils from '../../../../../shared/utils/form.util';
+import { FileUploadService } from '../../../../../shared/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-admin-category-form',
@@ -20,6 +21,7 @@ export class AdminCategoryFormPageComponent {
   private router = inject(Router);
   private categoryService = inject(CategoryService);
   private notificationService = inject(NotificationService);
+  private readonly fileUploadService = inject(FileUploadService);
   readonly formUtils = formUtils;
   private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   private signalParam = toSignal(this.route.paramMap);
@@ -91,7 +93,7 @@ export class AdminCategoryFormPageComponent {
 
     this.uploading.set(true);
 
-    this.categoryService.uploadImage(file).subscribe({
+    this.fileUploadService.uploadImage(file).subscribe({
       next: (res) => {
         const imageUrl = res.location || res.url;
 

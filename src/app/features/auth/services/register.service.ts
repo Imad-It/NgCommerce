@@ -14,12 +14,4 @@ export class RegisterService {
   register(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/users`, user);
   }
-
-  uploadImage(file: File): Observable<any> {
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    return this.http.post(`${this.baseUrl}/files/upload`, formData);
-  }
 }

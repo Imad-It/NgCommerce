@@ -11,6 +11,7 @@ import { RegisterService } from '../../services/register.service';
 import { User } from '../../models/user.model';
 import { LoadingService } from '../../../../core/services/loading/loading.service';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
+import { FileUploadService } from '../../../../shared/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-register-form',
@@ -24,6 +25,7 @@ export class RegisterFormComponent {
   private readonly registerService = inject(RegisterService);
   private readonly loadingService = inject(LoadingService);
   private readonly notificationService = inject(NotificationService);
+  private readonly fileUploadService = inject(FileUploadService);
   private signalParam = toSignal(this.route.paramMap);
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
   readonly formUtils = formUtils;
@@ -85,7 +87,7 @@ export class RegisterFormComponent {
 
     this.uploading.set(true);
 
-    this.registerService.uploadImage(file).subscribe({
+    this.fileUploadService.uploadImage(file).subscribe({
       next: (res) => {
         const imageUrl = res.location || res.url;
 

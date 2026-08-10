@@ -29,13 +29,6 @@ export class CategoryService {
     return this.http.post<Category>(`${this.baseUrl}/categories`, data);
   }
 
-  uploadImage(file: File): Observable<any> {
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    return this.http.post(`${this.baseUrl}/files/upload`, formData);
-  }
   getCategoryById(id: number): Observable<Category> {
     return this.http.get<Category>(`${this.baseUrl}/categories/${id}`);
   }
