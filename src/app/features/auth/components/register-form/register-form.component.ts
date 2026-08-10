@@ -2,11 +2,15 @@ import { Component, computed, ElementRef, inject, signal, viewChild } from '@ang
 import { toSignal } from '@angular/core/rxjs-interop';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
+import { finalize, forkJoin, Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import * as formUtils from '../../../../shared/utils/form.util';
 import { CommonModule } from '@angular/common';
+import { RegisterService } from '../../services/register.service';
+import { User } from '../../models/user.model';
+import { LoadingService } from '../../../../core/services/loading/loading.service';
+import { NotificationService } from '../../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-register-form',
@@ -17,21 +21,27 @@ import { CommonModule } from '@angular/common';
 export class RegisterFormComponent {
   private readonly route = inject(ActivatedRoute);
   readonly router = inject(Router);
+  private readonly registerService = inject(RegisterService);
+  private readonly loadingService = inject(LoadingService);
+  private readonly notificationService = inject(NotificationService);
   private signalParam = toSignal(this.route.paramMap);
   id = computed(() => this.signalParam()?.get('id') ?? undefined);
   readonly formUtils = formUtils;
   private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
-  private readonly baseUrl = environment.apiUrl;
-  private http = inject(HttpClient);
 
   loading = signal(false);
   uploading = signal(false);
   imageTouched = signal(false);
-  registerModel = signal({
+  registerModel = signal<
+    User & {
+      passwordConfirmation: string;
+    }
+  >({
     name: '',
     email: '',
     password: '',
     passwordConfirmation: '',
+    role: 'customer',
     avatar: '',
   });
 
@@ -75,7 +85,7 @@ export class RegisterFormComponent {
 
     this.uploading.set(true);
 
-    this.uploadImage(file).subscribe({
+    this.registerService.uploadImage(file).subscribe({
       next: (res) => {
         const imageUrl = res.location || res.url;
 
@@ -87,6 +97,7 @@ export class RegisterFormComponent {
       error: (err) => {
         console.error(err);
         this.uploading.set(false);
+        this.notificationService.showError('Error', 'Error uploading images');
       },
 
       complete: () => {
@@ -95,17 +106,48 @@ export class RegisterFormComponent {
     });
   }
 
+  register(): void {
+    if (this.registerForm().invalid()) {
+      return;
+    }
+
+    const { passwordConfirmation, ...user } = this.registerModel();
+
+    this.loadingService.setLoading(true);
+
+    this.registerService
+      .register(user)
+      .pipe(finalize(() => this.loadingService.setLoading(false)))
+      .subscribe({
+        next: () => {
+          this.resetForm();
+          this.notificationService.showSuccess('Success', 'User is registered');
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error(error);
+
+          this.notificationService.showError('Error', 'Error registering user');
+        },
+      });
+  }
+
   // REMOVE IMAGE
   removeImage() {
     this.registerForm.avatar().value.set('');
     this.fileInput()!.nativeElement.value = '';
   }
 
-  uploadImage(file: File): Observable<any> {
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    return this.http.post(`${this.baseUrl}/files/upload`, formData);
+  // RESET FORM
+  private resetForm(): void {
+    this.fileInput()!.nativeElement.value = '';
+    this.registerModel.set({
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      role: 'customer',
+      avatar: '',
+    });
   }
 }

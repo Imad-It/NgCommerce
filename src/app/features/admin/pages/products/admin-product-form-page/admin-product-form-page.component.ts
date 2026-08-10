@@ -5,9 +5,10 @@ import { NotificationService } from '../../../../../core/services/notification/n
 import { ProductService } from '../../../../products/services/product.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
-import { forkJoin } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../../products/models/product.model';
+import { LoadingService } from '../../../../../core/services/loading/loading.service';
 
 @Component({
   selector: 'app-admin-product-form-page',
@@ -21,7 +22,8 @@ export class AdminProductFormPageComponent {
 
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
-  private notificationService = inject(NotificationService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly loadingService = inject(LoadingService);
 
   products = toSignal(this.productService.getProducts());
   categories = toSignal(this.categoryService.getCategories());
@@ -159,13 +161,13 @@ export class AdminProductFormPageComponent {
     }
   }
 
-  saveProduct() {
+  saveProduct(): void {
     if (this.productForm().invalid()) {
       console.log('FORM INVALID');
       return;
     }
 
-    this.loading.set(true);
+    this.loadingService.setLoading(true);
 
     const data = {
       title: this.productForm.title().value(),
@@ -176,27 +178,26 @@ export class AdminProductFormPageComponent {
       images: this.productForm.images().value(),
     };
 
-    this.productService.createProduct(data).subscribe({
-      next: () => {
-        this.resetForm();
+    this.productService
+      .createProduct(data)
+      .pipe(finalize(() => this.loadingService.setLoading(false)))
+      .subscribe({
+        next: () => {
+          this.resetForm();
 
-        this.notificationService.showSuccess('Created', 'Product created successfully');
+          this.notificationService.showSuccess('Created', 'Product created successfully');
 
-        this.router.navigate(['/admin/products']).then(() => {
-          window.location.reload();
-        });
-      },
+          this.router.navigate(['/admin/products']).then(() => {
+            window.location.reload();
+          });
+        },
 
-      error: (err) => {
-        console.error(err);
+        error: (err) => {
+          console.error(err);
 
-        this.notificationService.showError('Error', 'Operation failed. Please try again.');
-      },
-
-      complete: () => {
-        this.loading.set(false);
-      },
-    });
+          this.notificationService.showError('Error', 'Operation failed. Please try again.');
+        },
+      });
   }
 
   editProduct() {
