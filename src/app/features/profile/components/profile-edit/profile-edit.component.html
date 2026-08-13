@@ -1,0 +1,175 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">Create an Account</h2>
+
+          <!-- IMAGE -->
+          <div class="mb-4">
+            @if (profileForm.avatar().value()) {
+              <div
+                class="position-relative border rounded overflow-hidden bg-light"
+                style="height: 300px"
+              >
+                <img
+                  [src]="profileForm.avatar().value()"
+                  class="w-100 h-100"
+                  style="object-fit: contain"
+                  crossorigin="anonymous"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                  (click)="removeImage()"
+                >
+                  X
+                </button>
+              </div>
+            } @else {
+              <div
+                class="border rounded bg-light d-flex justify-content-center align-items-center text-muted"
+                style="height: 300px"
+              >
+                No Image Selected
+              </div>
+            }
+          </div>
+          <!-- UPLOADING -->
+          @if (uploading()) {
+            <div class="alert alert-info text-center">Uploading image...</div>
+          }
+
+          <!-- FILE INPUT -->
+          <div class="mb-4 form-group">
+            <label class="mb-2 fw-bold">Image<span class="text-danger">*</span></label>
+            <input
+              #fileInput
+              type="file"
+              class="form-control"
+              accept="image/*"
+              (change)="onImageSelected($event)"
+              (blur)="profileForm.avatar().markAsTouched()"
+              [class.is-valid]="
+                profileForm.avatar().valid() && profileForm.avatar().touched() && !uploading()
+              "
+              [class.is-invalid]="
+                profileForm.avatar().invalid() && profileForm.avatar().touched() && !uploading()
+              "
+            />
+            @if (imageTouched() && !uploading() && this.profileForm.avatar().invalid()) {
+              @for (error of profileForm.avatar().errors(); track error.kind) {
+                <div class="invalid-feedback">
+                  {{ error.message }}
+                </div>
+              }
+            }
+          </div>
+
+          <!-- NAME -->
+          <div class="mb-4 form-group">
+            <label class="mb-2 fw-bold">Name<span class="text-danger">*</span></label>
+
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Category name"
+              [formField]="profileForm.name"
+              [class.is-valid]="formUtils.isValid(profileForm.name)"
+              [class.is-invalid]="formUtils.isInvalid(profileForm.name)"
+            />
+            @if (profileForm.name().touched() && profileForm.name().invalid()) {
+              @for (error of profileForm.name().errors(); track error.kind) {
+                <div class="invalid-feedback">
+                  {{ error.message }}
+                </div>
+              }
+            }
+          </div>
+
+          <!-- EMAIL -->
+          <div class="mb-4 form-group">
+            <label class="mb-2 fw-bold">Email<span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Category slug"
+              [formField]="profileForm.email"
+              [class.is-valid]="formUtils.isValid(profileForm.email)"
+              [class.is-invalid]="formUtils.isInvalid(profileForm.email)"
+            />
+            @if (profileForm.email().touched() && profileForm.email().invalid()) {
+              @for (error of profileForm.email().errors(); track error.kind) {
+                <div class="invalid-feedback">
+                  {{ error.message }}
+                </div>
+              }
+            }
+          </div>
+
+          <!-- PASSWORD  -->
+          <div class="mb-4 form-group">
+            <label class="mb-2 fw-bold">Password 1<span class="text-danger">*</span></label>
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="Category slug"
+              [formField]="profileForm.password"
+              [class.is-valid]="formUtils.isValid(profileForm.password)"
+              [class.is-invalid]="formUtils.isInvalid(profileForm.password)"
+            />
+            @if (profileForm.password().touched() && profileForm.password().invalid()) {
+              @for (error of profileForm.password().errors(); track error.kind) {
+                <div class="invalid-feedback">
+                  {{ error.message }}
+                </div>
+              }
+            }
+          </div>
+
+          <!-- PASSWORDCONFIRMATION -->
+          <div class="mb-4 form-group">
+            <label class="mb-2 fw-bold">Password 2<span class="text-danger">*</span></label>
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="Category slug"
+              [formField]="profileForm.passwordConfirmation"
+              [class.is-valid]="formUtils.isValid(profileForm.passwordConfirmation)"
+              [class.is-invalid]="formUtils.isInvalid(profileForm.passwordConfirmation)"
+            />
+            @if (
+              profileForm.passwordConfirmation().touched() &&
+              profileForm.passwordConfirmation().invalid()
+            ) {
+              @for (error of profileForm.passwordConfirmation().errors(); track error.kind) {
+                <div class="invalid-feedback">
+                  {{ error.message }}
+                </div>
+              }
+            }
+          </div>
+
+          <!--  BUTTON -->
+          <!-- <div class="d-flex justify-content-end gap-3">
+            @if (loading()) {
+              <button class="btn btn-primary" [disabled]="loading() || registerForm().invalid()">
+                Registering...
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="router.navigate(['/products'])"
+              >
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary" (click)="register()">Register</button>
+            }
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

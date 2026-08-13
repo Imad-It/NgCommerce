@@ -1,23 +1,23 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
-import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import * as formUtils from '../../../../shared/utils/form.util';
-import { CommonModule } from '@angular/common';
-import { RegisterService } from '../../services/register.service';
-import { User } from '../../models/user.model';
+import { User } from '../../../auth/models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RegisterService } from '../../../auth/services/register.service';
 import { LoadingService } from '../../../../core/services/loading/loading.service';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
 import { FileUploadService } from '../../../../shared/file-upload/file-upload.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import * as formUtils from '../../../../shared/utils/form.util';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-register-form',
+  selector: 'app-profile-edit',
   imports: [CommonModule, FormField],
-  templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.css',
+  templateUrl: './profile-edit.component.html',
+  styleUrl: './profile-edit.component.css',
 })
-export class RegisterFormComponent {
+export class ProfileEditComponent {
   private readonly route = inject(ActivatedRoute);
   readonly router = inject(Router);
   private readonly registerService = inject(RegisterService);
@@ -32,7 +32,7 @@ export class RegisterFormComponent {
   loading = signal(false);
   uploading = signal(false);
   imageTouched = signal(false);
-  registerModel = signal<
+  profileModel = signal<
     User & {
       passwordConfirmation: string;
     }
@@ -45,7 +45,7 @@ export class RegisterFormComponent {
     avatar: '',
   });
 
-  registerForm = form(this.registerModel, (schema) => {
+  profileForm = form(this.profileModel, (schema) => {
     required(schema.name, { message: 'Name is required' });
     minLength(schema.name, 4, { message: 'Must be at least 4 characters' });
     required(schema.email, { message: 'Email is required' });
@@ -53,20 +53,6 @@ export class RegisterFormComponent {
     required(schema.password, { message: 'Password is required' });
     required(schema.passwordConfirmation, { message: 'Password confirmation is required' });
     required(schema.avatar, { message: 'Avatar is required' });
-
-    validate(schema.passwordConfirmation, ({ value, valueOf }) => {
-      const passwordConfirmation = value();
-      const password = valueOf(schema.password);
-
-      if (passwordConfirmation && password && passwordConfirmation !== password) {
-        return {
-          kind: 'passwordMismatch',
-          message: 'The passwords do not match.',
-        };
-      }
-
-      return null;
-    });
   });
 
   // IMAGE SELECT
@@ -79,7 +65,7 @@ export class RegisterFormComponent {
     // preview locally
     const reader = new FileReader();
     reader.onload = () => {
-      this.registerForm.avatar().value.set(reader.result as string);
+      this.profileForm.avatar().value.set(reader.result as string);
     };
     reader.readAsDataURL(file);
 
@@ -91,7 +77,7 @@ export class RegisterFormComponent {
 
         if (!imageUrl) return;
 
-        this.registerForm.avatar().value.set(imageUrl);
+        this.profileForm.avatar().value.set(imageUrl);
       },
 
       error: (err) => {
@@ -107,11 +93,11 @@ export class RegisterFormComponent {
   }
 
   register(): void {
-    if (this.registerForm().invalid()) {
+    if (this.profileForm().invalid()) {
       return;
     }
 
-    const { passwordConfirmation, ...user } = this.registerModel();
+    const { passwordConfirmation, ...user } = this.profileModel();
 
     this.loadingService.setLoading(true);
 
@@ -134,14 +120,14 @@ export class RegisterFormComponent {
 
   // REMOVE IMAGE
   removeImage() {
-    this.registerForm.avatar().value.set('');
+    this.profileForm.avatar().value.set('');
     this.fileInput()!.nativeElement.value = '';
   }
 
   // RESET FORM
   private resetForm(): void {
     this.fileInput()!.nativeElement.value = '';
-    this.registerModel.set({
+    this.profileModel.set({
       name: '',
       email: '',
       password: '',
