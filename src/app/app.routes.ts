@@ -37,19 +37,24 @@ export const routes: Routes = [
       {
         path: 'profile',
         canActivate: [authGuard],
-        loadComponent: () =>
-          import('./features/profile/components/profile-detail/profile-detail.component').then(
-            (m) => m.ProfileDetailComponent,
-          ),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/profile/components/profile-detail/profile-detail.component').then(
+                (m) => m.ProfileDetailComponent,
+              ),
+          },
+          {
+            path: 'edit',
+            loadComponent: () =>
+              import('./features/profile/components/profile-edit/profile-edit.component').then(
+                (m) => m.ProfileEditComponent,
+              ),
+          },
+        ],
       },
-      {
-        path: 'profile/edit',
-        canActivate: [authGuard],
-        loadComponent: () =>
-          import('./features/profile/components/profile-edit/profile-edit.component').then(
-            (m) => m.ProfileEditComponent,
-          ),
-      },
+
       {
         path: 'register',
         loadComponent: () =>
@@ -116,10 +121,23 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        loadComponent: () =>
-          import('./features/profile/components/profile-detail/profile-detail.component').then(
-            (m) => m.ProfileDetailComponent,
-          ),
+        canActivate: [authGuard],
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/profile/components/profile-detail/profile-detail.component').then(
+                (m) => m.ProfileDetailComponent,
+              ),
+          },
+          {
+            path: 'edit',
+            loadComponent: () =>
+              import('./features/profile/components/profile-edit/profile-edit.component').then(
+                (m) => m.ProfileEditComponent,
+              ),
+          },
+        ],
       },
     ],
   },

@@ -9,7 +9,7 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../../features/cart/services/cart.service';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/services/auth.service';
 
@@ -22,6 +22,7 @@ import { AuthService } from '../../auth/services/auth.service';
 export class NavbarComponent {
   private cartService = inject(CartService);
   authService = inject(AuthService);
+  private readonly router = inject(Router);
   faCartShopping = faCartShopping;
   faUser = faUser;
   faArrowRightFromBracket = faArrowRightFromBracket;
@@ -35,5 +36,13 @@ export class NavbarComponent {
 
   toggleNavbar() {
     this.showNavbar.update((value) => !value);
+  }
+
+  goToProfile(): void {
+    const currentUrl = this.router.url;
+
+    const targetUrl = currentUrl.startsWith('/admin') ? '/admin/profile' : '/profile';
+
+    this.router.navigateByUrl(targetUrl);
   }
 }

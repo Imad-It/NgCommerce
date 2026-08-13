@@ -117,7 +117,7 @@
           <li><hr class="dropdown-divider" /></li>
 
           <li>
-            <a class="dropdown-item" [routerLink]="['./profile']"
+            <a class="dropdown-item" (click)="goToProfile()"
               ><fa-icon [icon]="faAddressCard"></fa-icon> <span class="ms-3">Profile</span>
             </a>
           </li>
